@@ -7,8 +7,8 @@
 
         </div>
 
-        <NuxtLink to="/editor" >Links</NuxtLink>
-        <NuxtLink to="/profile">Profile Details</NuxtLink>
+        <button @click="onLinkEditorClick" >Links</button>
+        <button  @click="onProfileEditorCLick">Profile Details</button>
 
 
         <NuxtLink to="/preview">Preview</NuxtLink>
@@ -25,9 +25,19 @@
 <script setup>
 
    const props = defineProps({
-        isLink: Boolean
+        isLinkEditor:Boolean
     });
 
+
+    const emit = defineEmits(['setLinkEditor', 'setProfileEditor'])
+
+    function onLinkEditorClick(){
+        emit("setLinkEditor")
+    }
+
+    function onProfileEditorCLick(){
+        emit("setProfileEditor")
+    }
 
 </script>
 

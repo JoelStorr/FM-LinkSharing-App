@@ -1,27 +1,34 @@
 <template>
-    <NavBar />
+    <NavBar isLinkEditor="isLinkEditor.value" @setLinkEditor="setLinkEditor" @setProfileEditor="setProfileEditor"/>
     <div class="mainView">
         <div class="phonePreview">
             <img src="/images/illustration-phone-mockup.svg" />
         </div>
-        <div class="linkArea">
-            <h2>Customize your links</h2>
-            <p>Add/edit/remove links below and then share all your profiles  with the world</p>
-            <button>+Add new ink</button>
-            <div >
-                <img src="/images/illustration-empty.svg" >
-                <h3> Let's get you started</h3>
-                <p>Use the "Add new link" button to get started Once you have more then one link, you can reorder and edit them. We're here to help you share your profiles with everyone</p> 
-            </div>
-            <hr />
-            <button>Save</button>
+        <div class="editor">
+            <LinkEditor v-if="isLinkEditor"/>
+            <ProfileEditor v-else/>
+
         </div>
+        
 
     </div>
 </template>
 
 
 <script setup>
+import { ref } from 'vue';
+
+
+    const isLinkEditor = ref(true)
+
+    function setLinkEditor(){
+        isLinkEditor.value = true
+    }
+
+    function setProfileEditor(){
+        isLinkEditor.value = false
+    }
+
 </script>
 
 <style scoped>
@@ -44,7 +51,7 @@
         justify-content: center;
     }
 
-    .linkArea{
+    .editor{
         width: 58%;
         background-color: white;
     }
