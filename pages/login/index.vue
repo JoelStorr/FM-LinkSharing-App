@@ -1,4 +1,5 @@
 <template>
+    <img src="/images/logo-devlinks-large.svg"/>
     <h1>devlinks</h1>
     <div>
         <h2>Login</h2>
