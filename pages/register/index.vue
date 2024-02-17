@@ -30,6 +30,9 @@
 <script setup>
 import { ref } from 'vue';
 
+definePageMeta({
+    layout: "noHeader"
+})
 
 const email = ref("")
 const password = ref("")
