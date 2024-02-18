@@ -1,39 +1,161 @@
 <template>
-    <img src="/images/logo-devlinks-large.svg"/>
-    <h1>devlinks</h1>
-    <div>
-        <h2>Login</h2>
-        <p>Add your details below to get back inot the app</p>
-        <form @submit.prevent="login" >
-            <label for="email">
-                Email address
-                <input id="email" type="email" placeholder="eg.alex@email.com" v-model="email" />
-            </label>
-            <label for="password">
-                Password
-                <input id="password" type="password" placeholder="Enter your password" v-model="password">
-            </label>
-            <button type="submit">Login</button>
-        </form>
+  <div id="login-screen">
+    <img src="/images/logo-devlinks-large.svg" />
 
-        <p>Don't have an account? <NuxtLink to="/register">Create account</NuxtLink> </p>
+    <div id="login-content-holder">
+      <h1>Login</h1>
+      <p>Add your details below to get back inot the app</p>
+      <form @submit.prevent="login" id="login-form">
+        <label for="email" class="g-bodyS">
+          Email address <br />
+          <UITextField
+            :error="isEmailError"
+            type="mail"
+            placeholder-text="e.g. alex@email.com"
+            field-id="email"
+            @on-value-change="saveEmail"
+          >
+            <img src="/images/icon-email.svg" />
+            <template v-slot:error>
+                {{ emailErrorText }}
+            </template>
+          </UITextField>
+        </label>
+
+        <label for="password" class="g-bodyS">
+          Password <br />
+          <UITextField
+            :error="isPasswordError"
+            type="password"
+            placeholder-text="Enter your password"
+            field-id="password"
+            @on-value-change="savePassword"
+          >
+            <img src="/images/icon-password.svg" />
+            <template v-slot:error>
+                {{ passwordErrorText }}
+            </template>
+          </UITextField>
+        </label>
+        <UIButtonPrimary type="submit"> Login </UIButtonPrimary>
+      </form>
+
+      <p id="form-switch">
+        Don't have an account?
         
+        <NuxtLink to="/register" class="login-link">Create account</NuxtLink>
+      </p>
     </div>
-    
+  </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 definePageMeta({
-    layout: "noHeader"
-})
+  layout: "noHeader"
+});
 
-const email = ref("")
-const password = ref("")
+const email = ref("");
+const password = ref("");
 
-function login(){
+const isEmailError = ref(false);
+const isPasswordError = ref(false)
+
+const emailErrorText = ref("")
+const passwordErrorText = ref("")
+
+function saveEmail(value){
+    console.log(value);
+    email.value = value;
+};
+
+function savePassword(value){
+    console.log(value);
+    password.value = value;
+};
+
+
+function login() {
+    console.log('submitedt form');
+
+    isEmailError.value = false
+    isPasswordError.value = false
+
+    if(email.value.length < 4){
+        emailErrorText.value = "Please enter a email adress";
+        isEmailError.value = true;
+    } else{
+        emailErrorText.value = ""
+
+    }
+    if(password.value.length < 8){
+        passwordErrorText.value ="Enter valid Password"
+        isPasswordError.value = true;
+    }else{
+        passwordErrorText.value = ""
+    }
+
+    if(isEmailError.value || isPasswordError.value){
+        return
+    }
+
+   navigateTo("/editor");
+    
+
+
+
 
 }
-
 </script>
+
+<style scoped>
+#login-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+}
+
+#login-content-holder {
+  overflow: hidden;
+  background-color: white;
+  width: 30vw;
+  padding: 4rem;
+  margin-top: 6rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+#login-form {
+  position: relative;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  
+}
+
+#login-form label {
+  margin-bottom: 2rem;
+}
+
+#form-switch {
+  align-self: center;
+}
+
+.login-link {
+  text-decoration: none;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+</style>
