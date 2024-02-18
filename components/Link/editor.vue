@@ -13,7 +13,7 @@
                 <img src="/images/icon-link.svg" />
                 <template v-slot:error>This is error text</template>
             </TextField>
-            <Dropdown :options="options" />
+            <Dropdown :options="options" @setActiveElement="logger"/>
             <hr />
             <button>Save</button>
         </div>
@@ -30,17 +30,17 @@ import Dropdown from '../UI/Dropdown.vue';
         {
             id: 'github',
             name: 'Github',
-            icon: 'images/icon-github.svg'
+            icon: '/images/icon-github.svg'
         },
         {
             id: 'youtube',
             name: 'YouTube',
-            icon: 'images/icon-youtube.svg'
+            icon: '/images/icon-youtube.svg'
         },
         {
             id: 'linkedin',
             name: 'LinkedIn',
-            icon: 'images/icon-linkedin.svg'
+            icon: '/images/icon-linkedin.svg'
         }
     ]
 

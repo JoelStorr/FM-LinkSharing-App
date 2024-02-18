@@ -1,66 +1,125 @@
-
-
 <template>
-    <div @click="changeToggle" class="dropdown-field">
-        <img src="/images/icon-link.svg" />
-        <p>Dropdown Field</p>
-        <img src="/images/icon-chevron-down.svg" :class="toggle ? 'arrowUp':''"/>
+  <div @click="changeToggle" class="dropdown-field" :class="toggle ? 'active' : '' ">
+    <div v-if="activeElement.id == null" class="field-content">
+      <img src="/images/icon-link.svg" />
+      <p>Dropdown Field</p>
+      <img
+        src="/images/icon-chevron-down.svg"
+        :class="toggle ? 'arrowUp' : ''"
+      />
     </div>
-    <div v-if="toggle">
-        <div v-for=" option in options " :key="option.id" class="dropdown-item">
-            <div>
-                <img :src="option.icon" />
-                <p>{{ option.name }}</p>
-
-            </div>
-            <hr v-if="option.id !== options[options.length - 1].id"/>
-        </div>
+    <div v-else class="field-content">
+      <img :src="activeElement.icon" />
+      <p>{{ activeElement.name }}</p>
+      <img
+        src="/images/icon-chevron-down.svg"
+        :class="toggle ? 'arrowUp' : ''"
+      />
     </div>
-
-
+  </div>
+  <div v-if="toggle" class="options-container">
+    <div
+      v-for="option in options"
+      :key="option.id"
+      class="dropdown-item"
+      :class="option.id == activeElement.id ? 'activeEl' : ''"
+      @click="setActiveElement(option)"
+    >
+      <div>
+        <img :src="option.icon" />
+        <p>{{option.id == activeElement.id ? option.name + ' (Selected)' : option.name}}</p>
+      </div>
+      <hr v-if="option.id !== options[options.length - 1].id" />
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+const props = defineProps({
+    options: Array
+});
 
-    const props = defineProps<{
-        options: {id: string, name: string, icon: string }[]
-    }>()
- 
-    let toggle = ref(false);
-    let selected = ref(null)
+const emits = defineEmits(['setActiveElement'])
 
-    function changeToggle(){
-        toggle.value = !toggle.value
-    }
+let toggle = ref(false);
+let selected = ref(null);
+let activeElement = ref({ id: null, name: null, icon: null });
 
-    function lastItem(el: string):boolean{
-        return el !== props.options[-1].id;
-    }
+function changeToggle() {
+  toggle.value = !toggle.value;
+}
 
+
+function setActiveElement(el) {
+  activeElement.value = {id: el.id, name: el.name, icon: el.icon}
+    toggle.value = !toggle.value
+    emits('setActiveElement', activeElement.value)
+}
 </script>
 
-
 <style scoped>
+.dropdown-field {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 1rem;
+}
 
-    .dropdown-field{
-        display: flex;
-        flex-direction: row;
-        padding: 0.5rem 1rem;
-        border: 1px solid #D9D9D9;
-        border-radius: 1rem;
-    }
-    .dropdown-field p {
-        flex:1;
-        margin: 0 0 0 1rem;
-        padding: .5rem 0;
-    }
+.dropdown-field:hover{
+    cursor: pointer;
+}
 
-    .arrowUp{
-        transform: rotate(180deg);
-    }
+.field-content {
+  display: flex;
+  flex-direction: row;
+}
 
-    .dropdown-item div{
-        display: flex;
-    }
+.field-content p {
+  flex: 1;
+  margin: 0 0 0 1rem;
+  padding: 0.5rem 0;
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}
+
+.active{
+     border: 1px solid #623CFF;
+    box-shadow: 0 0 20px #BEADFF;
+}
+
+.dropdown-item div {
+  display: flex;
+}
+
+.activeEl {
+  color: #623cff;
+}
+
+.activeEl img {
+    filter: invert(27%) sepia(93%) saturate(3954%) hue-rotate(245deg) brightness(97%) contrast(108%);
+}
+
+.options-container{
+    z-index: 5;
+    margin-top: 2rem ;
+    padding: 0 1.5rem;
+    border: 1px solid #D9D9D9;
+    border-radius: 5px;
+}
+
+.options-container:hover{
+    cursor: pointer;
+}
+
+.options-container p {
+    margin-left: 1rem;
+}
+
+hr{
+    border: none;
+    border-top: 1px solid #D9D9D9 ;
+    height: 0;
+}
 
 </style>
