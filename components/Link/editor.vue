@@ -8,17 +8,33 @@
                 <h3> Let's get you started</h3>
                 <p>Use the "Add new link" button to get started Once you have more then one link, you can reorder and edit them. We're here to help you share your profiles with everyone</p> 
             </div>
+
+            <TextField type="text" @onValueChange="logger" :error="false">
+                <img src="/images/icon-link.svg" />
+                <template v-slot:error>This is error text</template>
+            </TextField>
+
             <hr />
             <button>Save</button>
         </div>
 
 </template>
 
-<style scoped>
 
-      .linkArea{
-        
-        background-color: white;
+<script setup>
+
+    import TextField from '~/components/UI/TextField.vue';
+
+    function logger(value){
+        console.log(value)
     }
 
+</script>
+
+<style scoped>
+      .linkArea{
+        position: relative;
+        width: 100%;
+        background-color: white;
+    }
 </style>

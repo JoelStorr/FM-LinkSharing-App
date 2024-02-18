@@ -1,5 +1,7 @@
 <template>
     <NavBar isLinkEditor="isLinkEditor.value" @setLinkEditor="setLinkEditor" @setProfileEditor="setProfileEditor"/>
+    
+
     <div class="mainView">
         <div class="phonePreview">
             <img src="/images/illustration-phone-mockup.svg" />
@@ -7,7 +9,6 @@
         <div class="editor">
             <LinkEditor v-if="isLinkEditor"/>
             <ProfileEditor v-else/>
-
         </div>
         
 
@@ -19,6 +20,7 @@
 import { ref } from 'vue';
 
 
+
     const isLinkEditor = ref(true)
 
     function setLinkEditor(){
@@ -28,6 +30,11 @@ import { ref } from 'vue';
     function setProfileEditor(){
         isLinkEditor.value = false
     }
+
+    function btnClick(){
+        console.log("Button Clicked")
+    }
+
 
 </script>
 
