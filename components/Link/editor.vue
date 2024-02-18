@@ -8,15 +8,8 @@
                 <h3> Let's get you started</h3>
                 <p>Use the "Add new link" button to get started Once you have more then one link, you can reorder and edit them. We're here to help you share your profiles with everyone</p> 
             </div>
-
-            <TextField type="text" @onValueChange="logger" :error="false" placeholderText="Enter your email pelease">
-                <img src="/images/icon-link.svg" />
-                <template v-slot:error>This is error text</template>
-            </TextField>
-            <Dropdown :options="options" @setActiveElement="logger"/>
             <hr />
             <button>Save</button>
-            <ImageUploadVue  imgSrc="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
         </div>
 
 </template>
