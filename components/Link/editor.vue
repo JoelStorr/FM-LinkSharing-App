@@ -9,11 +9,11 @@
                 <p>Use the "Add new link" button to get started Once you have more then one link, you can reorder and edit them. We're here to help you share your profiles with everyone</p> 
             </div>
 
-            <TextField type="text" @onValueChange="logger" :error="false">
+            <TextField type="text" @onValueChange="logger" :error="false" placeholderText="Enter your email pelease">
                 <img src="/images/icon-link.svg" />
                 <template v-slot:error>This is error text</template>
             </TextField>
-
+            <Dropdown :options="options" />
             <hr />
             <button>Save</button>
         </div>
@@ -23,7 +23,26 @@
 
 <script setup>
 
-    import TextField from '~/components/UI/TextField.vue';
+import TextField from '~/components/UI/TextField.vue';
+import Dropdown from '../UI/Dropdown.vue';
+
+    let options = [
+        {
+            id: 'github',
+            name: 'Github',
+            icon: 'images/icon-github.svg'
+        },
+        {
+            id: 'youtube',
+            name: 'YouTube',
+            icon: 'images/icon-youtube.svg'
+        },
+        {
+            id: 'linkedin',
+            name: 'LinkedIn',
+            icon: 'images/icon-linkedin.svg'
+        }
+    ]
 
     function logger(value){
         console.log(value)
