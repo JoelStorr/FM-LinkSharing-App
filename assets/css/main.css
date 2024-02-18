@@ -1,0 +1,50 @@
+@font-face {
+    font-family: "InstrumentSans";
+    src: url('fonts/InstrumentSans-VariableFont_wdth,wght.ttf') format('truetype');
+    font-style: normal;
+   
+}
+
+@font-face {
+    font-family: "InstrumentSans";
+    src: url('fonts/InstrumentSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+    font-style: italic;
+
+}
+
+
+
+html, body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-size: 62.5%;
+    font-family: "InstrumentSans";
+}
+
+h1{
+    font-size: 3.2rem;
+    line-height: 150%;
+    font-weight: bold;
+}
+
+h2{
+    font-size: 1.6rem;
+    line-height: 150%;
+    font-weight: bold;
+}
+
+p{
+    font-size: 1.6rem;
+    line-height: 150%;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.bodyS{
+    font-size: 1.2rem;
+    line-height: 150%;
+    font-weight: normal;
+    font-style: normal;
+}
