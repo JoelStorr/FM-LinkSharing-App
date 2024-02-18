@@ -97,7 +97,7 @@ function setActiveElement(el) {
 }
 
 .activeEl img {
-    filter: invert(27%) sepia(93%) saturate(3954%) hue-rotate(245deg) brightness(97%) contrast(108%);
+    filter: brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(3954%) hue-rotate(245deg) brightness(97%) contrast(108%);
 }
 
 .options-container{
