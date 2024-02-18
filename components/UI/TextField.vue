@@ -2,9 +2,9 @@
 
     <div class="textfieldHolder" :class="props.error ? 'errorState' : 'normalState'">
         <slot />
-        <input :type="props.type" @input="handleChange" :class="props.error ? 'inputeError' : ''" :placeholder="placeholderText"/>
-        <p class="errorText">
-            <slot name="error" />
+        <input :type="props.type" @input="handleChange" :class="props.error ? 'inputeError' : ''" :placeholder="placeholderText" :id="props.fieldId"/>
+        <p class="errorText">   
+             <slot name="error" />
         </p>
     </div>
 </template>
@@ -19,7 +19,8 @@ const emits =defineEmits(['onValueChange'])
 const props = defineProps({
     type: String,
     error: Boolean,
-    placeholderText: String
+    placeholderText: String,
+    fieldId: String,
 
 });
 
@@ -34,7 +35,10 @@ function handleChange(event){
 <style scoped>
 
     .textfieldHolder{
-        height: 30px;
+        box-sizing: border-box;
+        position: relative;
+        max-height: 40px;
+        width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -53,13 +57,24 @@ function handleChange(event){
     }
 
     input{
+        position: relative;
         height: 80%;
         flex: 1;
-        width: 150px;
+        width: 80%;
         border: none;
         font-size: 1.6rem;
-         margin: 0 0 0 1rem;
+        font-weight: lighter;
+        margin: 1rem 0 1rem 1rem;
+        color: #333333;
     }
+
+    input::placeholder{
+         font-size: 1.4rem;
+        font-weight:400;
+        color: #737373;
+    }
+
+
 
     .inputeError{
         color:#FF3939;
