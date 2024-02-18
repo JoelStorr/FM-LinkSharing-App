@@ -1,5 +1,5 @@
 <template>
-    <button @click="emit('onClick')" :disabled="props.disabled">
+    <button @click="emit('onClick')" :disabled="props.disabled" :type="props.type">
         <slot />
     </button>
 
@@ -10,7 +10,8 @@
 
 
      const props = defineProps({
-        disabled: Boolean
+        disabled: Boolean,
+        type: String
     })
 
     const emit = defineEmits(['onClick']);
