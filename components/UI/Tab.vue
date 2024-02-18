@@ -1,6 +1,6 @@
 <template>
 
-    <button class="tag" :class="props.active ? 'active' : ''">
+    <button class="tag" :class="props.active ? 'active' : ''" @click="emits.clicked">
         <img :src="props.imgSrc" />
         <p>{{ props.text }}</p>
     </button>
@@ -13,6 +13,8 @@
         text: String,
         active: Boolean
     });
+
+    const emits = defineEmits('clicked')
 
 
 </script>
