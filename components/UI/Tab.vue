@@ -1,8 +1,8 @@
 <template>
 
-    <button class="tag" :class="props.active ? 'active' : ''" @click="emits.clicked">
+    <button class="tag" :class="props.active ? 'active' : ''" @click="emits('clicked')">
         <img :src="props.imgSrc" />
-        <p>{{ props.text }}</p>
+        <p><slot /></p>
     </button>
 
 </template>
@@ -10,13 +10,10 @@
 <script setup>
     const props = defineProps({
         imgSrc: String,
-        text: String,
         active: Boolean
     });
 
-    const emits = defineEmits('clicked')
-
-
+    const emits = defineEmits('clicked');
 </script>
 
 <style scoped>
@@ -24,7 +21,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: .25rem 1rem;
+        padding: 1rem 1.5rem;
         background-color: rgba(0,0,0,0);
         border: none;
         border-radius: .5rem;
