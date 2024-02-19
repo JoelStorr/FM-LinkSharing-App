@@ -1,42 +1,72 @@
 <template>
-    <div class="bg-color-element"></div>
-    <div class="nav">
-        <NuxtLink to="/editor" >Back to Editor</NuxtLink>
-        <button>Share Link</button>
-    </div>
-    <div class="contact-card-holder">
-        <div class="contact-card">
-            <div class="imageOutline">
-                <img src="/images/icon-profile-details-header.svg" class="profileImage"/>
 
-            </div>
-            <h3>Ben Wright</h3>
-            <p>ben@example.com</p>
-            <div class="mockIcons black">
-                <img src="/images/icon-github.svg" />
-                <p>GitHub</p>
-                <img src="/images/icon-arrow-right.svg"/>
-            </div>
-            <div class="mockIcons red">
-                <img src="/images/icon-youtube.svg" />
-                <p>YouTube</p>
-                <img src="/images/icon-arrow-right.svg"/>
-            </div>
-            <div class="mockIcons blue">
-                <img src="/images/icon-linkedin.svg" />
-                <p>LinkedIn</p>
-                <img src="/images/icon-arrow-right.svg"/>
+    <div id="preview">
+        <div class="bg-color-element"></div>
+        <div class="nav">
+           
+            <UIButtonSecondary @on-click="goBack">Back to Editor</UIButtonSecondary>
+            <!-- TODO: Copy URL -->
+            <UIButtonPrimary>Share Link</UIButtonPrimary>
+    
+        </div>
+        <div class="contact-card-holder">
+            <div class="contact-card">
+                <div class="imageOutline">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="profileImage"/>
+    
+                </div>
+                <h1>Ben Wright</h1>
+                <p>ben@example.com</p>
+                <div class="mockIcons black">
+                    <img src="/images/icon-github.svg" />
+                    <p>GitHub</p>
+                    <img src="/images/icon-arrow-right.svg"/>
+                </div>
+                <div class="mockIcons red">
+                    <img src="/images/icon-youtube.svg" />
+                    <p>YouTube</p>
+                    <img src="/images/icon-arrow-right.svg"/>
+                </div>
+                <div class="mockIcons blue">
+                    <img src="/images/icon-linkedin.svg" />
+                    <p>LinkedIn</p>
+                    <img src="/images/icon-arrow-right.svg"/>
+                </div>
             </div>
         </div>
+
     </div>
+
 
 </template>
 
+<script setup>
+
+    function goBack(){
+        navigateTo("/editor");
+    }
+
+
+</script>
+
 
 <style scoped>
+
+    #preview{
+        
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        padding: 2rem;
+        
+        display: flex;
+        flex-direction: column;
+    }
+
     .nav{
+        position: relative;
         box-sizing: border-box;
-        width: 100%;
+        width: auto;
         height: 10%;
         padding: 2rem;
         display: flex;
@@ -46,6 +76,10 @@
         border-radius: 15px;
         margin-bottom: 100px;
     }
+    h1{
+        margin: 0;
+        padding: 0;
+    }
 
     .bg-color-element{
         position: absolute;
@@ -53,7 +87,7 @@
         left: 0;
         z-index: -1;
         width: 100%;
-        height: 30vh;
+        height: 35vh;
         background-color: #623CFF ;
         border-radius: 0 0 25px 25px;
     }
@@ -63,11 +97,13 @@
         height: 100px;
         border: #623CFF 4px solid;
         border-radius: 50%;
+        overflow: hidden;
     }
 
     .profileImage{
-        width: 100px;
-        height: 100px;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
     }
 
     .mockIcons{
@@ -84,17 +120,17 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        background-color: aqua;
+        
     }
 
     .contact-card {
         background-color: white;
-        width: 20%;
+        width: 25%;
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 20px;
-        box-shadow: 5px 5px 20px black ;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3) ;
         border-radius: 20px; 
     }
 
