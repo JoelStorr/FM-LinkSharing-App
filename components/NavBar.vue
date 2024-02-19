@@ -7,8 +7,8 @@
         </div>
 
         <div class="tabs-holder">
-            <UITab img-src="/images/icon-links-header.svg" :active="true" @clicked="onLinkEditorClick">Links</UITab>
-            <UITab img-src="/images/icon-profile-details-header.svg" :active="false" @clicked="onProfileEditorCLick">Profile Details</UITab>
+            <UITab img-src="/images/icon-links-header.svg" :active="linskActive" @clicked="onLinkEditorClick">Links</UITab>
+            <UITab img-src="/images/icon-profile-details-header.svg" :active="!linskActive" @clicked="onProfileEditorCLick">Profile Details</UITab>
         </div>
 
         <UIButtonSecondary @on-click="navigateToProfiel">Preview</UIButtonSecondary>
@@ -26,15 +26,20 @@
     });
 
 
+    const linskActive = ref(true);
+
+
     const emit = defineEmits(['setLinkEditor', 'setProfileEditor'])
 
     function onLinkEditorClick(){
         emit("setLinkEditor")
+        linskActive.value = true
     }
 
     function onProfileEditorCLick(){
         console.log('Nav profile editor')
         emit("setProfileEditor")
+        linskActive.value = false
     }
 
     function navigateToProfiel(){
