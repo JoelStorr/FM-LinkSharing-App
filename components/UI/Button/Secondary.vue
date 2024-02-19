@@ -23,8 +23,9 @@
         background-color: rgba(0,0,0,0) ;
         border: 1px solid #623CFF;
         color: #623CFF;
-        padding: 1rem 5rem;
+        padding: 1.2rem 4rem;
         border-radius: 10px;
+        font-size: 1.6rem;
     }
 
     button:active {
