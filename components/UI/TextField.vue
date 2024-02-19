@@ -38,7 +38,8 @@ function handleChange(event){
         box-sizing: border-box;
         position: relative;
         max-height: 40px;
-        width: 100%;
+        min-width: 60%;
+        max-width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -70,7 +71,7 @@ function handleChange(event){
     }
 
     input::placeholder{
-         font-size: 1.4rem;
+        font-size: 1.4rem;
         font-weight:400;
         color: #737373;
     }
