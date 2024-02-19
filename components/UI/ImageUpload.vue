@@ -6,7 +6,6 @@
            <img src="/images/icon-upload-image.svg" />
            <p v-if="imgSrc">Change Image</p>
            <p v-else>+ Upload Image</p>
-
        </div>
     </div>
 
@@ -28,8 +27,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 150px;
-        height: 150px;
+        width: 200px;
+        height: 200px;
         overflow: hidden;
         border-radius: 1rem;
     }
