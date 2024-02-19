@@ -25,8 +25,9 @@
         background-color: #623CFF ;
         border: none;
         color: white;
-        padding: 1rem 5rem;
+        padding: 1.3rem 5rem;
         border-radius: 10px;
+        font-size: 1.6rem;
     }
 
     button:active {
