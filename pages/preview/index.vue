@@ -17,21 +17,10 @@
                 </div>
                 <h1>Ben Wright</h1>
                 <p>ben@example.com</p>
-                <div class="mockIcons black">
-                    <img src="/images/icon-github.svg" />
-                    <p>GitHub</p>
-                    <img src="/images/icon-arrow-right.svg"/>
-                </div>
-                <div class="mockIcons red">
-                    <img src="/images/icon-youtube.svg" />
-                    <p>YouTube</p>
-                    <img src="/images/icon-arrow-right.svg"/>
-                </div>
-                <div class="mockIcons blue">
-                    <img src="/images/icon-linkedin.svg" />
-                    <p>LinkedIn</p>
-                    <img src="/images/icon-arrow-right.svg"/>
-                </div>
+               
+                <UILink class="ui-link" iconSrc="/images/icon-github.svg" name="GitHub"/>
+                <UILink class="ui-link" iconSrc="/images/icon-youtube.svg" name="YouTube"/>
+                <UILink iconSrc="/images/icon-linkedin.svg" name="LinkedIn"/>
             </div>
         </div>
 
@@ -98,12 +87,17 @@
         border: #623CFF 4px solid;
         border-radius: 50%;
         overflow: hidden;
+        margin-bottom: 1.5rem;
     }
 
     .profileImage{
         object-fit: cover;
         width: 100%;
         height: 100%;
+    }
+
+    p{
+        margin-bottom: 5rem;
     }
 
     .mockIcons{
@@ -119,17 +113,17 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: center;
-        
+        justify-content: center; 
     }
 
     .contact-card {
         background-color: white;
-        width: 25%;
+        min-width: 18%;
+        max-width: 25%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px;
+        padding: 5rem ;
         box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3) ;
         border-radius: 20px; 
     }
@@ -149,4 +143,8 @@
         color: white;
     }
 
+
+    .ui-link{
+        margin-bottom: 1.5rem;
+    }
 </style>
