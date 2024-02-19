@@ -45,6 +45,7 @@ function handleChange(event){
         border-radius: 10px;
         margin: 0;
         padding: 0.5rem 1rem;
+        background-color: white;
     }
 
     .normalState{
