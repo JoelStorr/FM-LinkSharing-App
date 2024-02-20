@@ -28,33 +28,33 @@
             :name="link1.name"
           />
           <UILink
-            v-if="link1 != null"
+            v-if="link2 != null"
             id="link2"
-            iconSrc="/images/icon-github.svg"
-            name="YouTube"
+            :iconSrc="link2.iconSrc"
+            :name="link2.name"
           />
           <UILink
-            v-if="link1 != null"
+            v-if="link3 != null"
             id="link3"
-            iconSrc="/images/icon-github.svg"
-            name="GitHub"
+            iconSrc="link3.iconSrc"
+            name="link3.name"
           />
           <UILink
-            v-if="link1 != null"
+            v-if="link4 != null"
             id="link4"
-            iconSrc="/images/icon-github.svg"
-            name="YouTube"
+            iconSrc="/link4.iconSrc"
+            name="link4.name"
           />
           <UILink
-            v-if="link1 != null"
+            v-if="link5 != null"
             id="link5"
-            iconSrc="/images/icon-github.svg"
-            name="LinkedIn"
+            iconSrc="link5.iconSrc"
+            name="link5.name"
           />
         </div>
       </div>
       <div class="editor">
-        <LinkEditor v-if="isLinkEditor" />
+        <LinkEditor v-if="isLinkEditor" @save="submitLink" :links="links"/>
         <ProfileEditor v-else />
       </div>
     </div>
@@ -63,14 +63,17 @@
 
 <script setup>
 import { ref } from "vue";
+import {LinkObject, LinkOptions} from '~/components/Helper'
 
 const isLinkEditor = ref(true);
 
-const link1 = ref({ iconSrc: "/images/icon-github.svg", name: "GitHub" });
+const link1 = ref(null);
 const link2 = ref(null);
 const link3 = ref(null);
 const link4 = ref(null);
 const link5 = ref(null);
+const links = ref([]);
+
 
 function setLinkEditor() {
   isLinkEditor.value = true;
@@ -84,6 +87,50 @@ function setProfileEditor() {
 function btnClick() {
   console.log("Button Clicked");
 }
+
+
+function submitLink(formObj){
+
+  console.log(LinkOptions[formObj.name])
+
+
+  const linkObj = new LinkObject(formObj.name, LinkOptions[formObj.name] ,formObj.link);
+
+  links.value = [...links.value, linkObj, linkObj]
+
+
+  console.log(links.value);
+  for (let link of links.value){
+
+    console.log('Link value', link)
+
+    if (link1.value == null){
+      link1.value = link;
+      continue;
+    }
+
+     if (link2.value == null){
+      link2.value = link;
+      continue;
+    }
+     if (link3.value == null){
+      link3.value = link;
+      continue;
+    }
+     if (link4.value == null){
+      link4.value = link;
+      continue;
+    }
+     if (link5.value == null){
+      link5.value = link;
+      continue;
+    }
+  }
+
+  console.log(link1.value)
+}
+
+
 </script>
 
 <style scoped>
