@@ -1,5 +1,5 @@
 <template>
-<div class="link" :class="bgColor()">
+<div class="link" :class="bgColor">
     <img :src="props.iconSrc" class="icon"/>
     <p>{{ props.name }}</p>
     <img src="/images/icon-arrow-right.svg"/>
@@ -16,10 +16,11 @@
         name: String
     });
 
+    console.log(typeof(props.name))
 
-    function bgColor(){
+    const bgColor = computed(()=>{
         switch(props.name){
-            case "GitHub":
+            case 'GitHub':
                 return "black";
             case "YouTube":
                 return "red";
@@ -29,7 +30,7 @@
                 return "blue"
         }
 
-    }
+    })
 
 
 
@@ -50,7 +51,7 @@
     }
 
     p{
-        margin: 1.5rem 1rem;
+        margin: 1rem 1rem;
         flex: 1;
         color: white;
     }
