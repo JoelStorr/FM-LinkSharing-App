@@ -4,6 +4,19 @@
 
 </template>
 
+<script setup>
+
+    definePageMeta({
+        middleware:[
+            function(to, from){
+               return  navigateTo('/editor')
+            }
+        ]
+    })
+
+</script>
+
+
 <style>
     html, body{
         margin: 0;
