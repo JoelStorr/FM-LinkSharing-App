@@ -8,7 +8,7 @@
 
     <UIButtonSecondary>+ Add new Link</UIButtonSecondary>
 
-    <div class="emptyHolder">
+    <div class="emptyHolder" v-if="links.length == 0">
       <img src="/images/illustration-empty.svg" />
       <h2>Let's get you started</h2>
       <p>
@@ -17,11 +17,14 @@
         profiles with everyone
       </p>
     </div>
+
+    <div v-else class="link-edit-items"></div>
+
     <hr />
 
     <div class="btn-holder">
       <div class="btn-spacer"></div>
-      <UIButtonPrimary :disabled="true">Save</UIButtonPrimary>
+      <UIButtonPrimary :disabled="false" @on-click="save">Save</UIButtonPrimary>
     </div>
   </div>
 </template>
@@ -30,6 +33,13 @@
 import TextField from "~/components/UI/TextField.vue";
 import Dropdown from "../UI/Dropdown.vue";
 import ImageUploadVue from "../UI/ImageUpload.vue";
+
+const emits = defineEmits(['save'])
+
+const props = defineProps({
+  links: Array
+});
+
 
 let options = [
   {
@@ -48,6 +58,11 @@ let options = [
     icon: "/images/icon-linkedin.svg",
   },
 ];
+
+
+function save(){
+  emits('save', {name: 'GitHub', link: 'https://www.github.com'})
+}
 
 function logger(value) {
   console.log(value);
@@ -75,6 +90,13 @@ function logger(value) {
   background-color: #fafafa;
   padding: 5rem 20rem;
 }
+
+
+.link-edit-items{
+  
+}
+
+
 
 h1 {
   padding: 0;
