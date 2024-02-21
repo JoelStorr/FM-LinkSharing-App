@@ -6,7 +6,7 @@
       world
     </p>
 
-    <UIButtonSecondary>+ Add new Link</UIButtonSecondary>
+    <UIButtonSecondary @click="addLink">+ Add new Link</UIButtonSecondary>
 
     <div class="emptyHolder" v-if="links.length == 0">
       <img src="/images/illustration-empty.svg" />
@@ -19,7 +19,7 @@
     </div>
 
     <div v-else class="link-edit-items">
-      <UILinkEditComponent />
+      <UILinkEditComponent  v-for="link in links" key="link.id" :link="link"/>
       
     
     </div>
@@ -37,36 +37,29 @@
 import TextField from "~/components/UI/TextField.vue";
 import Dropdown from "../UI/Dropdown.vue";
 import ImageUploadVue from "../UI/ImageUpload.vue";
+import {useMainStore} from '~/store/index'
+
 
 const emits = defineEmits(['save'])
 
 const props = defineProps({
-  links: Array
+  
 });
 
+const store = useMainStore()
+const {addEmpty,add} = store
 
-let options = [
-  {
-    id: "github",
-    name: "Github",
-    icon: "/images/icon-github.svg",
-  },
-  {
-    id: "youtube",
-    name: "YouTube",
-    icon: "/images/icon-youtube.svg",
-  },
-  {
-    id: "linkedin",
-    name: "LinkedIn",
-    icon: "/images/icon-linkedin.svg",
-  },
-];
+const links = computed(()=>{ return store.links})
 
 
 function save(){
-  emits('save', {name: 'GitHub', link: 'https://www.github.com'})
+  add()
 }
+
+function addLink(){
+  addEmpty();
+}
+
 
 function logger(value) {
   console.log(value);

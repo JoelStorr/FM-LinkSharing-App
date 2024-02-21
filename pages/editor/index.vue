@@ -1,7 +1,7 @@
 <template>
   <div id="editor-view">
     <NavBar
-      isLinkEditor="isLinkEditor.value"
+      :isLinkEditor="isLinkEditor"
       @setLinkEditor="setLinkEditor"
       @setProfileEditor="setProfileEditor"
     />
@@ -13,12 +13,12 @@
             src="/images/illustration-phone-mockup.svg"
             class="phone-image"
           />
-          <idv class="profile-image-holder">
+          <div class="profile-image-holder">
             <img
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="profile-image"
             />
-          </idv>
+          </div>
           <h2 class="name-prev">Max Mustermann</h2>
           <p class="link-prev">max@example.com</p>
           <UILink
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="editor">
-        <LinkEditor v-if="isLinkEditor" @save="submitLink" :links="links"/>
+        <LinkEditor v-if="isLinkEditor" @save="submitLink"/>
         <ProfileEditor v-else />
       </div>
     </div>
@@ -62,8 +62,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import {LinkObject, LinkOptions} from '~/components/Helper'
+import {useMainStore} from '~/store/index'
+
+
+const store = useMainStore();
+const {add, remove} = store
+
+console.log(store.links)
+  
 
 const isLinkEditor = ref(true);
 
@@ -72,7 +79,10 @@ const link2 = ref(null);
 const link3 = ref(null);
 const link4 = ref(null);
 const link5 = ref(null);
-const links = ref([]);
+const links = computed(()=>{
+  return store.links 
+  
+})
 
 
 function setLinkEditor() {
@@ -96,7 +106,7 @@ function submitLink(formObj){
 
   const linkObj = new LinkObject(formObj.name, LinkOptions[formObj.name] ,formObj.link);
 
-  links.value = [...links.value, linkObj, linkObj]
+  add(linkObj)
 
 
   console.log(links.value);
