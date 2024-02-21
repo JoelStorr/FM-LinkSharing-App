@@ -1,35 +1,37 @@
 <template>
-  <div @click="changeToggle" class="dropdown-field" :class="toggle ? 'active' : '' ">
-    <div v-if="activeElement.name == null" class="field-content">
-      <img src="/images/icon-link.svg" />
-      <p>Dropdown Field</p>
-      <img
-        src="/images/icon-chevron-down.svg"
-        :class="toggle ? 'arrowUp' : ''"
-      />
-    </div>
-    <div v-else class="field-content">
-      <img :src="activeElement.icon" />
-      <p>{{ activeElement.name }}</p>
-      <img
-        src="/images/icon-chevron-down.svg"
-        :class="toggle ? 'arrowUp' : ''"
-      />
-    </div>
-  </div>
-  <div v-if="toggle" class="options-container">
-    <div
-      v-for="option in options"
-      :key="option.id"
-      class="dropdown-item"
-      :class="option.name == activeElement.name ? 'activeEl' : ''"
-      @click="setActiveElement(option)"
-    >
-      <div>
-        <img :src="option.icon" />
-        <p>{{option.id == activeElement.name ? option.name + ' (Selected)' : option.name}}</p>
+  <div id="dropdown-holder">
+    <div @click="changeToggle" class="dropdown-field" :class="toggle ? 'active' : '' ">
+      <div v-if="activeElement.name == null" class="field-content">
+        <img src="/images/icon-link.svg" />
+        <p>Dropdown Field</p>
+        <img
+          src="/images/icon-chevron-down.svg"
+          :class="toggle ? 'arrowUp' : ''"
+        />
       </div>
-      <hr v-if="option.id !== options[options.length - 1].id" />
+      <div v-else class="field-content">
+        <img :src="activeElement.icon" />
+        <p>{{ activeElement.name }}</p>
+        <img
+          src="/images/icon-chevron-down.svg"
+          :class="toggle ? 'arrowUp' : ''"
+        />
+      </div>
+    </div>
+    <div v-if="toggle" class="options-container">
+      <div
+        v-for="option in options"
+        :key="option.id"
+        class="dropdown-item"
+        :class="option.name == activeElement.name ? 'activeEl' : ''"
+        @click="setActiveElement(option)"
+      >
+        <div>
+          <img :src="option.icon" />
+          <p>{{option.name == activeElement.name ? option.name + ' (Selected)' : option.name}}</p>
+        </div>
+        <hr v-if="option.name !== options[options.length - 1].name" />
+      </div>
     </div>
   </div>
 </template>
@@ -59,6 +61,11 @@ function setActiveElement(el) {
 </script>
 
 <style scoped>
+
+#dropdown-holder{
+  position: relative;
+}
+
 .dropdown-field {
   padding: 0.5rem 1rem;
   border: 1px solid #d9d9d9;
