@@ -1,6 +1,6 @@
 <template>
   <div @click="changeToggle" class="dropdown-field" :class="toggle ? 'active' : '' ">
-    <div v-if="activeElement.id == null" class="field-content">
+    <div v-if="activeElement.name == null" class="field-content">
       <img src="/images/icon-link.svg" />
       <p>Dropdown Field</p>
       <img
@@ -22,12 +22,12 @@
       v-for="option in options"
       :key="option.id"
       class="dropdown-item"
-      :class="option.id == activeElement.id ? 'activeEl' : ''"
+      :class="option.name == activeElement.name ? 'activeEl' : ''"
       @click="setActiveElement(option)"
     >
       <div>
         <img :src="option.icon" />
-        <p>{{option.id == activeElement.id ? option.name + ' (Selected)' : option.name}}</p>
+        <p>{{option.id == activeElement.name ? option.name + ' (Selected)' : option.name}}</p>
       </div>
       <hr v-if="option.id !== options[options.length - 1].id" />
     </div>
