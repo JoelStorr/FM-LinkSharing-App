@@ -70,16 +70,19 @@ function logger(value) {
 #linkEditor {
   position: relative;
   width: 100%;
+  height: 100%;
   background-color: white;
   padding: 2rem 4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 2.5rem;
+  overflow: hidden;
 }
 
 .emptyHolder {
   max-width: 100%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,11 +94,12 @@ function logger(value) {
 
 .link-edit-items{
   max-width: 100%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+  overflow: scroll;
 }
 
 

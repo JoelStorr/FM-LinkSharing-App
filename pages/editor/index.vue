@@ -145,13 +145,16 @@ function submitLink(formObj){
 
 <style scoped>
 #editor-view {
+  position: relative;
   box-sizing: border-box;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   background-color: #fafafa;
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  
 }
 
 .phonePreview {
@@ -253,9 +256,12 @@ function submitLink(formObj){
   align-items: stretch;
   margin-top: 3rem;
   flex: 1;
+  height: 90%;
+  overflow: hidden;
 }
 
 .editor {
+  position: relative;
   width: 58%;
   height: 100%;
   background-color: white;
