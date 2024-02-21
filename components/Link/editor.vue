@@ -18,7 +18,11 @@
       </p>
     </div>
 
-    <div v-else class="link-edit-items"></div>
+    <div v-else class="link-edit-items">
+      <UILinkEditComponent />
+      
+    
+    </div>
 
     <hr />
 
@@ -72,7 +76,7 @@ function logger(value) {
 <style scoped>
 #linkEditor {
   position: relative;
-  max-width: 100%;
+  width: 100%;
   background-color: white;
   padding: 2rem 4rem;
   display: flex;
@@ -93,6 +97,11 @@ function logger(value) {
 
 
 .link-edit-items{
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   
 }
 

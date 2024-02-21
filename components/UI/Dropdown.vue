@@ -35,8 +35,9 @@
 </template>
 
 <script setup>
+// {id:String name: String, icon: String}
 const props = defineProps({
-    options: Array
+    options: Array,
 });
 
 const emits = defineEmits(['setActiveElement'])
@@ -51,7 +52,7 @@ function changeToggle() {
 
 
 function setActiveElement(el) {
-  activeElement.value = {id: el.id, name: el.name, icon: el.icon}
+  activeElement.value = {id: el.id, name: el.name, icon: el.icon, link: el.link}
     toggle.value = !toggle.value
     emits('setActiveElement', activeElement.value)
 }
@@ -62,6 +63,7 @@ function setActiveElement(el) {
   padding: 0.5rem 1rem;
   border: 1px solid #d9d9d9;
   border-radius: 1rem;
+  background-color: white;
 }
 
 .dropdown-field:hover{
@@ -92,20 +94,24 @@ function setActiveElement(el) {
   display: flex;
 }
 
-.activeEl {
-  color: #623cff;
-}
-
 .activeEl img {
     filter: brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(3954%) hue-rotate(245deg) brightness(97%) contrast(108%);
 }
+.activeEl p {
+  color: #623cff;
+}
 
 .options-container{
+    position: absolute;
     z-index: 5;
     margin-top: 2rem ;
     padding: 0 1.5rem;
     border: 1px solid #D9D9D9;
     border-radius: 5px;
+    width: 90%;
+    height: 25rem;
+    background-color: white;
+    overflow: scroll;
 }
 
 .options-container:hover{
