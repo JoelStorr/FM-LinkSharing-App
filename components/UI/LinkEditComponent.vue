@@ -103,6 +103,7 @@
         background-color: #FAFAFA;
         border-radius: 2.5rem;
         padding: 2rem;
+        margin-bottom: 2rem;
     }
 
 
