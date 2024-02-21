@@ -1,5 +1,5 @@
 <template>
-    <idv id="link-edit">
+    <div id="link-edit">
         <div class="header">
                 <div class="header-link-number">
                     <img src="/images/icon-drag-and-drop.svg" />
@@ -19,7 +19,7 @@
             </template>
         </UITextField>
 
-    </idv>
+    </div>
 
 
 </template>
@@ -34,16 +34,20 @@
         link: Object
     });
 
-   
+   const emits = defineEmits(['linkadded', 'remove'])
     
-    const activeLinkElement = ref({id: null, name: null, icon: "/images/icon-links-header.svg", link: null})
+    const activeLinkElement = ref({id: props.link.id ? props.link.id : null, name: null, icon: "/images/icon-links-header.svg", link: null})
 
     const hasError = ref(false)
     const errorMessage = ref("")
+    const id = props.link.id
+
 
     function onActiveElement(value){
         console.log(value)
         activeLinkElement.value = value;
+        activeLinkElement.value.id = id;
+
     }
 
    function isValidUrl(string) {
@@ -81,6 +85,16 @@
                 console.log('URL was true')
                 errorMessage.value = ""
                 hasError.value = false
+                
+
+               let newLinkComponent = {
+                    ...activeLinkElement.value,
+                    link: value
+                }
+
+                console.log(newLinkComponent)
+
+
             }else{
                 errorMessage.value = "Please check the URL"
                 hasError.value = true;
