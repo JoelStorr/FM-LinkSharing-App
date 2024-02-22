@@ -19,7 +19,7 @@
     </div>
 
     <div v-else class="link-edit-items">
-      <UILinkEditComponent  v-for="link in links" key="link.id" :link="link"/>
+      <UILinkEditComponent  v-for="link in links" key="link.id" :link="link" @linkadded="eventPass"/>
       
     
     </div>
@@ -40,7 +40,7 @@ import ImageUploadVue from "../UI/ImageUpload.vue";
 import {useMainStore} from '~/store/index'
 
 
-const emits = defineEmits(['save'])
+const emits = defineEmits(['save', 'linkadded'])
 
 const props = defineProps({
   
@@ -52,8 +52,12 @@ const {addEmpty,add} = store
 const links = computed(()=>{ return store.links})
 
 
+function eventPass(){
+  emits('linkadded')
+}
+
 function save(){
-  add()
+  
 }
 
 function addLink(){

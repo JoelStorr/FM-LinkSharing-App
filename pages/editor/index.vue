@@ -24,37 +24,37 @@
           <UILink
             v-if="link1 != null"
             id="link1"
-            :iconSrc="link1.iconSrc"
+            :iconSrc="link1.icon"
             :name="link1.name"
           />
           <UILink
             v-if="link2 != null"
             id="link2"
-            :iconSrc="link2.iconSrc"
+            :iconSrc="link2.icon"
             :name="link2.name"
           />
           <UILink
             v-if="link3 != null"
             id="link3"
-            iconSrc="link3.iconSrc"
-            name="link3.name"
+            :iconSrc="link3.icon"
+            :name="link3.name"
           />
           <UILink
             v-if="link4 != null"
             id="link4"
-            iconSrc="/link4.iconSrc"
-            name="link4.name"
+            :iconSrc="link4.icon"
+            :name="link4.name"
           />
           <UILink
             v-if="link5 != null"
             id="link5"
-            iconSrc="link5.iconSrc"
-            name="link5.name"
+            :iconSrc="link5.icon"
+            :name="link5.name"
           />
         </div>
       </div>
       <div class="editor">
-        <LinkEditor v-if="isLinkEditor" @save="submitLink"/>
+        <LinkEditor v-if="isLinkEditor" @save="submitLink" @linkadded="submitLink"/>
         <ProfileEditor v-else />
       </div>
     </div>
@@ -99,17 +99,20 @@ function btnClick() {
 }
 
 
-function submitLink(formObj){
+function submitLink(){
 
-  console.log(LinkOptions[formObj.name])
+  console.log('submit link ran');
+
+  console.log(links.value)
+
+  link1.value = null;
+  link2.value = null;
+  link3.value = null;
+  link4.value = null;
+  link5.value = null;
 
 
-  const linkObj = new LinkObject(formObj.name, LinkOptions[formObj.name] ,formObj.link);
 
-  add(linkObj)
-
-
-  console.log(links.value);
   for (let link of links.value){
 
     console.log('Link value', link)

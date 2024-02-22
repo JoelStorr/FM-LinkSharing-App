@@ -19,7 +19,7 @@ export const useMainStore = defineStore('main', {
         },
 
         add(link) {
-            const index = this.links.map((e) => e.id).indexOf(id);
+            const index = this.links.map((e) => e.id).indexOf(link.id);
             this.links[index].name = link.name
             this.links[index].icon = link.icon
             this.links[index].link = link.link
