@@ -19,8 +19,8 @@
               class="profile-image"
             />
           </div>
-          <h2 class="name-prev">Max Mustermann</h2>
-          <p class="link-prev">max@example.com</p>
+          <h2 class="name-prev">{{ profile.firstName }} {{ profile.lastName }}</h2>
+          <p class="link-prev">{{profile.email}}</p>
           <UILink
             v-if="link1 != null"
             id="link1"
@@ -82,6 +82,10 @@ const link5 = ref(null);
 const links = computed(()=>{
   return store.links 
   
+})
+
+const profile = computed(()=>{
+  return store.profile
 })
 
 
