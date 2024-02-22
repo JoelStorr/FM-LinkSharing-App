@@ -1,14 +1,15 @@
 <template>
   <div id="profile-editor">
     <div>
-        <h1>Profile Details</h1>
-        <p>Add your details to create a personal touch to your profile.</p>
-
+      <h1>Profile Details</h1>
+      <p>Add your details to create a personal touch to your profile.</p>
     </div>
     <div class="image-upload-holder">
       <p>Profile Picture</p>
-      
-      <UIImageUpload img-src="https://images.unsplash.com/photo-1708162664567-49732d4b39c7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
+
+      <UIImageUpload
+        img-src="https://images.unsplash.com/photo-1708162664567-49732d4b39c7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      />
 
       <p>
         Images must be below 1024x1024px. <br />
@@ -20,30 +21,49 @@
         <label for="firstName">
           First name*
           <div class="form-spacer"></div>
-          <UITextField type="text" placeholder-text="e.g. John" field-id="firstName" @on-value-change="onFirstNameChange"></UITextField>
-          
+          <UITextField
+            type="text"
+            placeholder-text="e.g. John"
+            field-id="firstName"
+            @on-value-change="onFirstNameChange"
+            :error="isFirstNameError"
+          >
+            <img />
+            <template v-slot:error>{{firstNameError}}</template>
+        </UITextField>
         </label>
         <label for="lastName">
           Last name*
           <div class="form-spacer"></div>
-        <UITextField type="text" placeholder-text="e.g. Appleseed" field-id="lastName" @on-value-change="onLastNameChange"></UITextField>
+          <UITextField
+            type="text"
+            placeholder-text="e.g. Appleseed"
+            field-id="lastName"
+            @on-value-change="onLastNameChange"
+            :error="isLastNameError"
+          >
+            <img />
+            <template v-slot:error>{{lastNameError}}</template>
+        </UITextField>
         </label>
         <label for="email">
-            Email
-            <div class="form-spacer">
-              
-
-          </div>
-          <UITextField type="email" placeholder-text="e.g. email@example.com" field-id="email" @on-value-change="onEmailChange">
+          Email
+          <div class="form-spacer"></div>
+          <UITextField
+            type="email"
+            placeholder-text="e.g. email@example.com"
+            field-id="email"
+            @on-value-change="onEmailChange"
+            :error="isEmailError"
+          >
             <img />
-            <template v-slot:error>This is a error text</template>
-        
-        </UITextField>
+            <template v-slot:error>{{emailError}}</template>
+          </UITextField>
         </label>
       </form>
     </div>
     <hr />
-     <div class="btn-holder">
+    <div class="btn-holder">
       <div class="btn-spacer"></div>
       <UIButtonPrimary :disabled="true">Save</UIButtonPrimary>
     </div>
@@ -51,23 +71,89 @@
 </template>
 
 <script setup>
+import { useMainStore } from "~/store/index";
+import {emailRegEx} from "~/components/Helper"
 
-    const firstName = ref("");
-    const lastName = ref("");
-    const email = ref("");
+const store = useMainStore();
+const { addFristName, addLastName, addEmail } = store;
 
-    function onFirstNameChange(value){
-        firstName.value = value
-    };
+const firstName = ref("");
+const isFirstNameError = ref(false)
+const firstNameError = ref("")
+const lastName = ref("");
+const isLastNameError = ref(false)
+const lastNameError = ref("")
+const email = ref("");
+const isEmailError = ref(false)
+const emailError = ref("")
 
-    function onLastNameChange(value){
-        lastName.value = value
+
+let timerFirst = null;
+let timerLast = null;
+let timerEmail = null
+
+function onFirstNameChange(value) {
+
+  if(timerFirst != null){
+    clearTimeout(timerFirst)
+  }
+
+  timerFirst = setTimeout(()=>{
+
+    if(value.length < 2){
+     
+      isFirstNameError.value = true
+      firstNameError.value = "Can't be empty"
+    } else{
+      addFristName(value);
+      isFirstNameError.value = false;
+      firstNameError.value = ""
     }
 
-    function onEmailChange(value){
-        email.value = value
+  },1000)
+
+}
+
+function onLastNameChange(value) {
+
+   if(timerLast != null){
+    clearTimeout(timerLast)
+  }
+
+  timerLast = setTimeout(()=>{
+
+    if(value.length < 2){
+      isLastNameError.value = true
+      lastNameError.value = "Can't be empty"
+    } else{
+      addLastName(value);
+      isLastNameError.value = false;
+      lastNameError.value = ""
     }
 
+  },1000)
+
+}
+
+function onEmailChange(value) {
+  if (timerEmail != null) {
+    clearTimeout(timerEmail);
+  }
+
+  timerEmail = setTimeout(() => {
+    if (emailRegEx.test(value)) {
+      console.log("Email Valid");
+      emailError.value = ""
+      isEmailError.value = false
+      addEmail(value);
+    } else{
+      emailError.value = "Invalid email adress"
+      isEmailError.value = true
+    }
+  }, 1000);
+
+  email.value = value;
+}
 </script>
 
 <style scoped>
@@ -82,23 +168,22 @@
   border-radius: 2.5rem;
 }
 
-
 .image-upload-holder {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #FAFAFA;
-    border-radius: 2.5rem;
-    padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fafafa;
+  border-radius: 2.5rem;
+  padding: 2rem;
 }
 
-.form-holder{
-    background-color: #FAFAFA;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    border-radius: 2.5rem;
+.form-holder {
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 2.5rem;
 }
 
 .btn-holder {
@@ -116,22 +201,20 @@ hr {
   height: 0;
 }
 
-label{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
-
-form:last-child{
-    margin-bottom: 0rem;
+form:last-child {
+  margin-bottom: 0rem;
 }
 
-.form-spacer{
-    width: 500px;
-    flex: 1;
+.form-spacer {
+  width: 500px;
+  flex: 1;
 }
-
 </style>

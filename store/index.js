@@ -6,8 +6,8 @@ export const useMainStore = defineStore('main', {
     state: ()=>({
         links: [],
         profile: {
-            firstName: 'Max',
-            lastName: 'Mustermann',
+            firstName: null,
+            lastName: null,
             email: null,
         }
     }),
