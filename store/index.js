@@ -5,6 +5,11 @@ import { defineStore } from 'pinia';
 export const useMainStore = defineStore('main', {
     state: ()=>({
         links: [],
+        profile: {
+            firstName: 'Max',
+            lastName: 'Mustermann',
+            email: null,
+        }
     }),
 
     actions: {
@@ -31,6 +36,17 @@ export const useMainStore = defineStore('main', {
 
             this.links.splice(index, 1);
         },
+
+        addFristName(firstName){
+            this.profile.firstName = firstName;
+        },
+        addLastName(lastName){
+            this.profile.lastName = lastName;
+        },
+        addEmail(email){
+            this.profile.email = email
+        }
+
     }
 })
 
