@@ -60,6 +60,7 @@ function onActiveElement(value) {
     ...activeLinkElement.value,
     name: value.name,
     icon: value.icon,
+    link: activeLinkElement.value.link ? activeLinkElement.value.link : value.link
   };
 
   if (linkValidated.value && activeLinkElement.value.id != null) {
