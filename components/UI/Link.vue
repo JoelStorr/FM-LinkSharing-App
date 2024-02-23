@@ -1,16 +1,33 @@
 <template>
-  <div class="link" :class="bgColor">
+  <NuxtLink class="link" :class="bgColor" :to="externalLink" :target="props.link ?'_blank': ''">
     <img :src="props.iconSrc" :class="iconDark" />
     <p :class="darkText">{{ props.name }}</p>
     <img src="/images/icon-arrow-right.svg" :class="darkArrow" />
-  </div>
+  </NuxtLink>
 </template>
 
 <script setup>
 const props = defineProps({
   iconSrc: String,
   name: String,
+  link: String
 });
+
+
+const externalLink = computed(()=>{
+
+  if(props.link == null){
+    return ''
+  }
+  const linkpartialhttp = props.link.slice(0,4)
+  const linkpartialhttps = props.link.slice(0,5)
+  
+  if(linkpartialhttp != "http" || linkpartialhttps != "https"){
+    return "https://"+props.link
+  }else{
+    return props.link
+  }
+})
 
 let bgColor = computed(() => {
 console.log(props.name)
@@ -73,6 +90,7 @@ let iconDark = computed(()=>{
   width: 100%;
   border-radius: 0.5rem;
   padding: 0 1rem;
+  text-decoration: none;
 }
 
 .link:hover {

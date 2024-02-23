@@ -12,15 +12,20 @@
         <div class="contact-card-holder">
             <div class="contact-card">
                 <div class="imageOutline">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="profileImage"/>
-    
+                    <img :src="store.profile.image" class="profileImage"/>
                 </div>
-                <h1>Ben Wright</h1>
-                <p>ben@example.com</p>
+                <h1>{{ store.profile.firstName }} {{ store.profile.lastName }}</h1>
+                <p>{{ store.profile.email }}</p>
                
-                <UILink class="ui-link" iconSrc="/images/icon-github.svg" name="GitHub"/>
-                <UILink class="ui-link" iconSrc="/images/icon-youtube.svg" name="YouTube"/>
-                <UILink iconSrc="/images/icon-linkedin.svg" name="LinkedIn"/>
+                <div class="link-holder">
+                    <UILink class="link-element" v-for="link in store.links"
+                        :id="link.id"
+                        :iconSrc="link.icon"
+                        :name="link.name"
+                        :link="link.link"
+                    />
+                
+                </div>
             </div>
         </div>
 
@@ -30,6 +35,14 @@
 </template>
 
 <script setup>
+
+    import {useMainStore} from '~/store/index'
+
+    const store = useMainStore();
+
+
+
+
 
     function goBack(){
         navigateTo("/editor");
@@ -123,28 +136,19 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 5rem ;
+        padding: 5rem 2rem 4.5rem 2rem;
         box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3) ;
         border-radius: 20px; 
     }
 
-    .red{
-        background-color: red;
-        color: white;
+    .link-holder{
+        width: 100%;
     }
 
-    .blue{
-        background-color: blue;
-        color: white;
-    }
-
-    .black{
-        background-color: black;
-        color: white;
+    .link-element{
+         margin-bottom: 1.5rem;
     }
 
 
-    .ui-link{
-        margin-bottom: 1.5rem;
-    }
+
 </style>
