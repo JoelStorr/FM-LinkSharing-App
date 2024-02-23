@@ -29,7 +29,7 @@
         :move="checkMove"
         @start="dragging = true"
         @end="dragging = false"
-       
+        handle=".handle"
       >
       <template #item="{element: link}">
           <UILinkEditComponent  :key="link.id" :link="link" @linkadded="eventPass"></UILinkEditComponent>
