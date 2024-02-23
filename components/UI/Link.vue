@@ -57,7 +57,12 @@ let darkText = computed(()=>{
 });
 
 let iconDark = computed(()=>{
-  return props.name == "Frontend Mentor" ? "" : "icon"
+  if (props.name == "Frontend Mentor" || props.name == "Dev.to" ){
+    return ""
+  } else{
+    return  "icon"
+  }
+  
 })
 
 </script>
