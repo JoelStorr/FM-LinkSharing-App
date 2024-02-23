@@ -39,7 +39,6 @@ function onLinkEditorClick() {
 }
 
 function onProfileEditorCLick() {
-  console.log("Nav profile editor");
   emit("setProfileEditor");
   linskActive.value = false;
 }
