@@ -2,8 +2,8 @@
   <div id="link-edit">
     <div class="header">
       <div class="header-link-number">
-        <img src="/images/icon-drag-and-drop.svg" class=".handle"/>
-        <h2>Link # {{ props.linkNumber }}</h2>
+        <img src="/images/icon-drag-and-drop.svg" class="handle"/>
+        <h2>Link # {{ linkNumber}}</h2>
       </div>
 
       <button @click="removeLink">Remove</button>
@@ -36,12 +36,12 @@ import { DropdownOptions } from "../Helper";
 import { useMainStore } from "~/store/index";
 
 const props = defineProps({
-  linkNumber: Number,
+  
   link: Object,
 });
 
 const store = useMainStore();
-const { add, remove } = store;
+const { add, remove, getIndex } = store;
 
 const emits = defineEmits(["linkadded", "removeEl"]);
 
@@ -56,6 +56,13 @@ const hasError = ref(false);
 const errorMessage = ref("");
 const id = props.link.id;
 const linkValidated = ref(false);
+
+
+const linkNumber = computed(()=>{
+  return getIndex(props.link.id) + 1
+})
+
+
 
 function onActiveElement(value) {
   activeLinkElement.value = {

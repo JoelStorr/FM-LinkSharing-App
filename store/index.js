@@ -42,6 +42,10 @@ export const useMainStore = defineStore('main', {
             this.links = reorder
         },
 
+        getIndex(id){
+            return this.links.map((e) => e.id).indexOf(id);
+        },
+
 
         // NOTE: Profile
         addFristName(firstName){
