@@ -23,7 +23,7 @@
           <div class="form-spacer"></div>
           <UITextField
             type="text"
-            placeholder-text="e.g. John"
+            :placeholder-text="firstName?? 'e.g. John'"
             field-id="firstName"
             @on-value-change="onFirstNameChange"
             :error="isFirstNameError"
@@ -37,7 +37,7 @@
           <div class="form-spacer"></div>
           <UITextField
             type="text"
-            placeholder-text="e.g. Appleseed"
+            :placeholder-text="lastName ?? 'e.g. Appleseed'"
             field-id="lastName"
             @on-value-change="onLastNameChange"
             :error="isLastNameError"
@@ -51,7 +51,7 @@
           <div class="form-spacer"></div>
           <UITextField
             type="email"
-            placeholder-text="e.g. email@example.com"
+            :placeholder-text="email ?? 'e.g. email@example.com'"
             field-id="email"
             @on-value-change="onEmailChange"
             :error="isEmailError"
@@ -77,13 +77,13 @@ import { emailRegEx } from "~/components/Helper";
 const store = useMainStore();
 const { addFristName, addLastName, addEmail } = store;
 
-const firstName = ref("");
+const firstName = ref(store.profile.firstName);
 const isFirstNameError = ref(false);
 const firstNameError = ref("");
-const lastName = ref("");
+const lastName = ref(store.profile.lastName);
 const isLastNameError = ref(false);
 const lastNameError = ref("");
-const email = ref("");
+const email = ref(store.profile.email);
 const isEmailError = ref(false);
 const emailError = ref("");
 
