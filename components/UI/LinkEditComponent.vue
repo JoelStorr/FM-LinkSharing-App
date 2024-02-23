@@ -6,12 +6,14 @@
         <h2>Link # {{ props.linkNumber }}</h2>
       </div>
 
-      <button>Remove</button>
+      <button @click="removeLink">Remove</button>
     </div>
     <p>Platform</p>
     <UIDropdown
       :options="DropdownOptions"
       @set-active-element="onActiveElement"
+      :name="activeLinkElement.name"
+      :icon="activeLinkElement.icon"
     />
 
     <p>Link</p>
@@ -41,13 +43,13 @@ const props = defineProps({
 const store = useMainStore();
 const { add, remove } = store;
 
-const emits = defineEmits(["linkadded", "remove"]);
+const emits = defineEmits(["linkadded", "removeEl"]);
 
 const activeLinkElement = ref({
   id: props.link.id ? props.link.id : null,
-  name: null,
+  name: props.link.name ?? null,
   icon: "/images/icon-links-header.svg",
-  link: null,
+  link: props.link.link ?? null,
 });
 
 const hasError = ref(false);
@@ -118,6 +120,13 @@ function linkValidation(value) {
     }
   }, 1000);
 }
+
+
+function removeLink(){
+  remove(activeLinkElement.value.id)
+  emits('linkadded')
+}
+
 </script>
 
 <style scoped>

@@ -19,14 +19,17 @@
               class="profile-image"
             />
           </div>
-          <h2 class="name-prev">{{ profile.firstName }} {{ profile.lastName }}</h2>
-          <p class="link-prev">{{profile.email}}</p>
+          <h2 class="name-prev">
+            {{ profile.firstName }} {{ profile.lastName }}
+          </h2>
+          <p class="link-prev">{{ profile.email }}</p>
           <UILink
-            v-if="link1 != null"
+            v-if="link1 !== null"
             id="link1"
             :iconSrc="link1.icon"
             :name="link1.name"
           />
+          <div v-else></div>
           <UILink
             v-if="link2 != null"
             id="link2"
@@ -54,7 +57,11 @@
         </div>
       </div>
       <div class="editor">
-        <LinkEditor v-if="isLinkEditor" @save="submitLink" @linkadded="submitLink"/>
+        <LinkEditor
+          v-if="isLinkEditor"
+          @save="submitLink"
+          @linkadded="submitLink"
+        />
         <ProfileEditor v-else />
       </div>
     </div>
@@ -62,32 +69,39 @@
 </template>
 
 <script setup>
-import {LinkObject, LinkOptions} from '~/components/Helper'
-import {useMainStore} from '~/store/index'
-
+import { LinkObject, LinkOptions } from "~/components/Helper";
+import { useMainStore } from "~/store/index";
 
 const store = useMainStore();
-const {add, remove} = store
+const { add, remove } = store;
 
-console.log(store.links)
-  
+console.log(store.links);
 
 const isLinkEditor = ref(true);
 
-const link1 = ref(null);
-const link2 = ref(null);
-const link3 = ref(null);
-const link4 = ref(null);
-const link5 = ref(null);
-const links = computed(()=>{
-  return store.links 
-  
-})
+const link1 = useState("link1", () => {
+  return null;
+});
+const link2 = useState("link2", () => {
+  return null;
+});
+const link3 = useState("link3", () => {
+  return null;
+});
+const link4 = useState("link4", () => {
+  return null;
+});
+const link5 = useState("link5", () => {
+  return null;
+});
 
-const profile = computed(()=>{
-  return store.profile
-})
+const links = computed(() => {
+  return store.links;
+});
 
+const profile = computed(() => {
+  return store.profile;
+});
 
 function setLinkEditor() {
   isLinkEditor.value = true;
@@ -102,52 +116,43 @@ function btnClick() {
   console.log("Button Clicked");
 }
 
-
-function submitLink(){
-
-  console.log('submit link ran');
-
-  console.log(links.value)
-
+function submitLink() {
   link1.value = null;
   link2.value = null;
   link3.value = null;
   link4.value = null;
   link5.value = null;
 
+  console.log(links.value);
 
+  for (let link of links.value) {
+    console.log("Link value", link);
 
-  for (let link of links.value){
-
-    console.log('Link value', link)
-
-    if (link1.value == null){
+    if (link1.value == null) {
       link1.value = link;
       continue;
     }
 
-     if (link2.value == null){
+    if (link2.value == null) {
       link2.value = link;
       continue;
     }
-     if (link3.value == null){
+    if (link3.value == null) {
       link3.value = link;
       continue;
     }
-     if (link4.value == null){
+    if (link4.value == null) {
       link4.value = link;
       continue;
     }
-     if (link5.value == null){
+    if (link5.value == null) {
       link5.value = link;
       continue;
     }
   }
 
-  console.log(link1.value)
+  console.log("Logged Link One", link1);
 }
-
-
 </script>
 
 <style scoped>
@@ -161,7 +166,6 @@ function submitLink(){
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  
 }
 
 .phonePreview {

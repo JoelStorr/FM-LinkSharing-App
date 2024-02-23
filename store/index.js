@@ -30,10 +30,8 @@ export const useMainStore = defineStore('main', {
             this.links[index].link = link.link
 
         },
-        remove(state, { id }) {
-
+        remove( id ) {
             const index = this.links.map((e) => e.id).indexOf(id);
-
             this.links.splice(index, 1);
         },
 

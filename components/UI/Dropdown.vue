@@ -21,7 +21,7 @@
     <div v-if="toggle" class="options-container">
       <div
         v-for="option in options"
-        :key="option.id"
+        :key="option.name"
         class="dropdown-item"
         :class="option.name == activeElement.name ? 'activeEl' : ''"
         @click="setActiveElement(option)"
@@ -40,13 +40,15 @@
 // {id:String name: String, icon: String}
 const props = defineProps({
     options: Array,
+    name: String,
+    icon: String
 });
 
 const emits = defineEmits(['setActiveElement'])
 
 let toggle = ref(false);
 let selected = ref(null);
-let activeElement = ref({ id: null, name: null, icon: null });
+let activeElement = ref({ name: props.name, icon: props.icon });
 
 function changeToggle() {
   toggle.value = !toggle.value;
@@ -54,7 +56,9 @@ function changeToggle() {
 
 
 function setActiveElement(el) {
-  activeElement.value = {id: el.id, name: el.name, icon: el.icon, link: el.link}
+  console.log(el)
+
+  activeElement.value = { name: el.name, icon: el.icon, link: el.link}
     toggle.value = !toggle.value
     emits('setActiveElement', activeElement.value)
 }
