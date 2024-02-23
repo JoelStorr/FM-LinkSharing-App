@@ -15,11 +15,35 @@ const props = defineProps({
 const bgColor = computed(() => {
   switch (props.name) {
     case "GitHub":
-      return "black";
-    case "YouTube":
-      return "red";
+      return "github";
+    case "Frontend Mentor":
+      return "forntendmentor";
+    case "Twitter":
+      return "twitter";
     case "LinkedIn":
-      return "blue";
+      return "linkedin";
+    case "YouTube":
+      return "youtube";
+    case "Facebook":
+      return "facebook";
+    case "Twitch":
+      return "twitch";
+    case "Dev.to":
+      return "devto";
+    case "Codewars":
+      return "codewars";
+    case "Codepen":
+      return "codepen";
+    case "freeCodeCamp":
+      return "freecodecamp";
+    case "GitLab":
+        return "gitlab";
+    case "Hashnode":
+      return "hashnode";
+    case "Stack Overflow":
+      return "stackoverflow"
+    
+    case
   }
 });
 </script>
