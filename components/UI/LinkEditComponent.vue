@@ -19,7 +19,8 @@
     <p>Link</p>
     <UITextField
       type="string"
-      :placeholder-text="activeLinkElement.link"
+      :value="activeLinkElement.link"
+      :placeholder-text="activeLinkElement.placeholder"
       @on-value-change="linkValidation"
       :error="hasError"
     >
@@ -47,8 +48,9 @@ const emits = defineEmits(["linkadded", "removeEl"]);
 const activeLinkElement = ref({
   id: props.link.id ? props.link.id : null,
   name: props.link.name ?? null,
-  icon: "/images/icon-links-header.svg",
+  icon: props.link.icon ?? "/images/icon-links-header.svg",
   link: props.link.link ?? null,
+  placeholder: props.link.placeholder ?? null
 });
 
 const hasError = ref(false);
@@ -65,9 +67,9 @@ function onActiveElement(value) {
     ...activeLinkElement.value,
     name: value.name,
     icon: value.icon,
-    link: activeLinkElement.value.link
-      ? activeLinkElement.value.link
-      : value.link,
+    link: activeLinkElement.value.link,
+    placeholder: value.link
+      
   };
 
   if (linkValidated.value && activeLinkElement.value.id != null) {
@@ -100,6 +102,10 @@ function linkValidation(value) {
     if (value.length < 1) {
       errorMessage.value = "Can't be empty";
       hasError.value = true;
+     activeLinkElement.value = {
+        ...activeLinkElement.value,
+        link: value,
+      };
     }
 
     if (isValidUrl(value)) {
@@ -117,6 +123,10 @@ function linkValidation(value) {
     } else {
       errorMessage.value = "Please check the URL";
       hasError.value = true;
+      activeLinkElement.value = {
+        ...activeLinkElement.value,
+        link: value,
+      };
     }
   }, 1000);
 }

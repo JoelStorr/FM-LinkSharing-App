@@ -22,6 +22,7 @@ export const useMainStore = defineStore('main', {
                 name: null,
                 icon: null,
                 link: null, 
+                placeholder: null,
             })
         },
 
@@ -30,6 +31,7 @@ export const useMainStore = defineStore('main', {
             this.links[index].name = link.name
             this.links[index].icon = link.icon
             this.links[index].link = link.link
+            this.links[index].placeholder = link.placeholder
 
         },
         

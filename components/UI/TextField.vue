@@ -2,7 +2,7 @@
 
     <div class="textfieldHolder" :class="props.error ? 'errorState' : 'normalState'">
         <slot />
-        <input :type="props.type" @input="handleChange" :class="props.error ? 'inputeError' : ''" :placeholder="placeholderText" :id="props.fieldId"/>
+        <input :type="props.type" @input="handleChange" :class="props.error ? 'inputeError' : ''" :placeholder="placeholderText" :id="props.fieldId" :value="props.value"/>
         <p class="errorText">   
              <slot name="error" />
         </p>
@@ -21,6 +21,7 @@ const props = defineProps({
     error: Boolean,
     placeholderText: String,
     fieldId: String,
+    value: String
 
 });
 
