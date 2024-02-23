@@ -9,6 +9,7 @@ export const useMainStore = defineStore('main', {
             firstName: null,
             lastName: null,
             email: null,
+            image: null,
         }
     }),
 
@@ -43,8 +44,11 @@ export const useMainStore = defineStore('main', {
         },
         addEmail(email){
             this.profile.email = email
-        }
+        },
 
+        addImage(image){
+            this.profile.image = image
+        }
     }
 })
 

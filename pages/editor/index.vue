@@ -13,9 +13,9 @@
             src="/images/illustration-phone-mockup.svg"
             class="phone-image"
           />
-          <div class="profile-image-holder">
-            <img
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          <div class="profile-image-holder" v-if="profile.image">
+            <img 
+              :src="profile.image"
               class="profile-image"
             />
           </div>
@@ -74,6 +74,9 @@ import { useMainStore } from "~/store/index";
 
 const store = useMainStore();
 const { add, remove } = store;
+
+
+
 
 console.log(store.links);
 
