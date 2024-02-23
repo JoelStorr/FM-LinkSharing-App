@@ -130,6 +130,7 @@ function setActiveElement(el) {
   height: 25rem;
   background-color: white;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 .options-container:hover {
