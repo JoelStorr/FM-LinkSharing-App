@@ -102,6 +102,8 @@ const links = computed(() => {
   return store.links;
 });
 
+
+
 const profile = computed(() => {
   return store.profile;
 });
@@ -126,7 +128,7 @@ function submitLink() {
   link4.value = null;
   link5.value = null;
 
-  console.log(links.value);
+  console.log('on submitLink',links.value);
 
   for (let link of links.value) {
     console.log("Link value", link);

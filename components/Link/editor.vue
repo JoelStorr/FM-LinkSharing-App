@@ -19,7 +19,24 @@
     </div>
 
     <div v-else class="link-edit-items">
-      <UILinkEditComponent  v-for="link in links" key="link.id" :link="link" @linkadded="eventPass"/>
+
+      <draggable 
+        v-model="links"
+        :disabled="false"
+        item-key="name"
+        class="list-group"
+        ghost-class="ghost"
+        :move="checkMove"
+        @start="dragging = true"
+        @end="dragging = false"
+       
+      >
+      <template #item="{element: link}">
+          <UILinkEditComponent  :key="link.id" :link="link" @linkadded="eventPass"></UILinkEditComponent>
+      </template>
+      
+
+      </draggable>
       
     
     </div>
@@ -40,19 +57,35 @@ import ImageUploadVue from "../UI/ImageUpload.vue";
 import {useMainStore} from '~/store/index'
 
 
+
 const emits = defineEmits(['save', 'linkadded'])
+
 
 const props = defineProps({
   
 });
 
 const store = useMainStore()
-const {addEmpty,add} = store
+const {addEmpty,add, reoderLinks} = store
 
-const links = computed(()=>{ return store.links})
+const links = computed({
+  get(){
+    return store.links
+  },
+  set(value){
+    console.log('Reorder Value', value)
+    reoderLinks(value)
+    emits('linkadded')
+  }
 
+})
+
+
+
+const dragging = useState('dragging', ()=>{return false} )
 
 function eventPass(){
+  console.log('event pass ran')
   emits('linkadded')
 }
 
@@ -62,6 +95,10 @@ function save(){
 
 function addLink(){
   addEmpty();
+}
+
+function checkMove(e){
+   window.console.log("Future index: " + e.draggedContext.futureIndex);
 }
 
 
@@ -127,4 +164,9 @@ hr {
 .btn-spacer {
   flex: 1;
 }
+
+.not-draggable {
+  cursor: no-drop;
+}
+
 </style>

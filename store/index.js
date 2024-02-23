@@ -15,6 +15,7 @@ export const useMainStore = defineStore('main', {
 
     actions: {
 
+        // NOTE:Links
         addEmpty(){
             this.links.push({
                 id: Math.random() * 10000,
@@ -31,11 +32,18 @@ export const useMainStore = defineStore('main', {
             this.links[index].link = link.link
 
         },
+        
         remove( id ) {
             const index = this.links.map((e) => e.id).indexOf(id);
             this.links.splice(index, 1);
         },
 
+        reoderLinks(reorder){
+            this.links = reorder
+        },
+
+
+        // NOTE: Profile
         addFristName(firstName){
             this.profile.firstName = firstName;
         },
@@ -48,7 +56,10 @@ export const useMainStore = defineStore('main', {
 
         addImage(image){
             this.profile.image = image
-        }
+        },
+
+      
+
     }
 })
 

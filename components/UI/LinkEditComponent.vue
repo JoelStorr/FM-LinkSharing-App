@@ -2,7 +2,7 @@
   <div id="link-edit">
     <div class="header">
       <div class="header-link-number">
-        <img src="/images/icon-drag-and-drop.svg" />
+        <img src="/images/icon-drag-and-drop.svg" class=".handle"/>
         <h2>Link # {{ props.linkNumber }}</h2>
       </div>
 
@@ -69,6 +69,9 @@ function onActiveElement(value) {
     console.log("new link value", activeLinkElement.value);
 
     add(activeLinkElement.value);
+
+    console.log('Updated selection')
+
     emits("linkadded");
   }
 }
