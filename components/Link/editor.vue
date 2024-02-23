@@ -165,6 +165,9 @@ hr {
   flex: 1;
 }
 
+.list-group{
+  width: 100%;
+}
 .not-draggable {
   cursor: no-drop;
 }
