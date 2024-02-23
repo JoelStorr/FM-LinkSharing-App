@@ -1,8 +1,8 @@
 <template>
   <div class="link" :class="bgColor">
-    <img :src="props.iconSrc" class="icon" />
-    <p>{{ props.name }}</p>
-    <img src="/images/icon-arrow-right.svg" />
+    <img :src="props.iconSrc" :class="iconDark" />
+    <p :class="darkText">{{ props.name }}</p>
+    <img src="/images/icon-arrow-right.svg" :class="darkArrow" />
   </div>
 </template>
 
@@ -12,7 +12,9 @@ const props = defineProps({
   name: String,
 });
 
-const bgColor = computed(() => {
+let bgColor = computed(() => {
+console.log(props.name)
+
   switch (props.name) {
     case "GitHub":
       return "github";
@@ -42,15 +44,26 @@ const bgColor = computed(() => {
       return "hashnode";
     case "Stack Overflow":
       return "stackoverflow"
-    
-    case
   }
 });
+
+let darkArrow = computed(()=>{
+  console.log(props.name)
+  return props.name == "Frontend Mentor" ? "arrow-dark" : ""
+});
+
+let darkText = computed(()=>{
+  return props.name == "Frontend Mentor" ? "dark-text" : "light-text"
+});
+
+let iconDark = computed(()=>{
+  return props.name == "Frontend Mentor" ? "" : "icon"
+})
+
 </script>
 
 <style scoped>
 .link {
-  background-color: black;
   display: flex;
   width: 100%;
   border-radius: 0.5rem;
@@ -64,6 +77,13 @@ const bgColor = computed(() => {
 p {
   margin: 1rem 1rem;
   flex: 1;
+}
+
+.dark-text{
+  color: #333333;
+}
+
+.light-text{
   color: white;
 }
 
@@ -73,13 +93,63 @@ p {
   scale: 1.2;
 }
 
-.black {
+.arrow-dark{
+  filter: brightness(0) saturate(100%) invert(48%) sepia(18%) saturate(0%) hue-rotate(293deg) brightness(90%) contrast(90%);
+}
+
+.github {
   background-color: #1a1a1a;
 }
-.red {
-  background-color: #ee3939;
+.forntendmentor{
+  background-color: #fff;
+  border: 1px solid #737373;
 }
-.blue {
-  background-color: #2d68ff;
+.twitter{
+  background-color: #43B7E9;
 }
+
+.linkedin{
+  background-color: #2E67FD;
+}
+
+.youtube{
+  background-color: #EE393A;
+}
+
+.facebook{
+  background-color: #2342AC;
+}
+
+.twitch{
+  background-color: #EE42C8;
+}
+
+.devto{
+  background-color: #333333;
+}
+
+.codewars{
+  background-color: #8A1B50;
+}
+
+.codepen{
+  background-color: #5F6061;
+}
+
+.freecodecamp{
+  background-color: #302267 ;
+}
+
+.gitlab{
+  background-color: #EB4925;
+}
+
+.hashnode{
+  background-color: #0435D1;
+}
+
+.stackoverflow{
+  background-color: #EC7100;
+}
+
 </style>

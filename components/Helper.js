@@ -23,7 +23,7 @@ export const DropdownOptions = [
     link: "https://github.com/",
   },
   {
-    name: "Forntend Mentor",
+    name: "Frontend Mentor",
     icon: "/images/icon-frontend-mentor.svg",
     link: "https://www.frontendmentor.io/profile/",
   },
