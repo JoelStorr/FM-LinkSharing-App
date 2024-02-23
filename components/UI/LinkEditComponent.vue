@@ -2,8 +2,8 @@
   <div id="link-edit">
     <div class="header">
       <div class="header-link-number">
-        <img src="/images/icon-drag-and-drop.svg" class="handle"/>
-        <h2>Link # {{ linkNumber}}</h2>
+        <img src="/images/icon-drag-and-drop.svg" class="handle" />
+        <h2>Link # {{ linkNumber }}</h2>
       </div>
 
       <button @click="removeLink">Remove</button>
@@ -36,7 +36,6 @@ import { DropdownOptions } from "../Helper";
 import { useMainStore } from "~/store/index";
 
 const props = defineProps({
-  
   link: Object,
 });
 
@@ -57,28 +56,22 @@ const errorMessage = ref("");
 const id = props.link.id;
 const linkValidated = ref(false);
 
-
-const linkNumber = computed(()=>{
-  return getIndex(props.link.id) + 1
-})
-
-
+const linkNumber = computed(() => {
+  return getIndex(props.link.id) + 1;
+});
 
 function onActiveElement(value) {
   activeLinkElement.value = {
     ...activeLinkElement.value,
     name: value.name,
     icon: value.icon,
-    link: activeLinkElement.value.link ? activeLinkElement.value.link : value.link
+    link: activeLinkElement.value.link
+      ? activeLinkElement.value.link
+      : value.link,
   };
 
   if (linkValidated.value && activeLinkElement.value.id != null) {
-    console.log("new link value", activeLinkElement.value);
-
     add(activeLinkElement.value);
-
-    console.log('Updated selection')
-
     emits("linkadded");
   }
 }
@@ -109,9 +102,7 @@ function linkValidation(value) {
       hasError.value = true;
     }
 
-    console.log(value);
     if (isValidUrl(value)) {
-      console.log("URL was true");
       errorMessage.value = "";
       hasError.value = false;
 
@@ -126,17 +117,14 @@ function linkValidation(value) {
     } else {
       errorMessage.value = "Please check the URL";
       hasError.value = true;
-      console.log("invalid url");
     }
   }, 1000);
 }
 
-
-function removeLink(){
-  remove(activeLinkElement.value.id)
-  emits('linkadded')
+function removeLink() {
+  remove(activeLinkElement.value.id);
+  emits("linkadded");
 }
-
 </script>
 
 <style scoped>

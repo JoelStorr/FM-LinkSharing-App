@@ -14,10 +14,7 @@
             class="phone-image"
           />
           <div class="profile-image-holder" v-if="profile.image">
-            <img 
-              :src="profile.image"
-              class="profile-image"
-            />
+            <img :src="profile.image" class="profile-image" />
           </div>
           <h2 class="name-prev">
             {{ profile.firstName }} {{ profile.lastName }}
@@ -75,11 +72,6 @@ import { useMainStore } from "~/store/index";
 const store = useMainStore();
 const { add, remove } = store;
 
-
-
-
-console.log(store.links);
-
 const isLinkEditor = ref(true);
 
 const link1 = useState("link1", () => {
@@ -102,8 +94,6 @@ const links = computed(() => {
   return store.links;
 });
 
-
-
 const profile = computed(() => {
   return store.profile;
 });
@@ -113,13 +103,10 @@ function setLinkEditor() {
 }
 
 function setProfileEditor() {
-  console.log("set Profile editor");
   isLinkEditor.value = false;
 }
 
-function btnClick() {
-  console.log("Button Clicked");
-}
+function btnClick() {}
 
 function submitLink() {
   link1.value = null;
@@ -128,10 +115,10 @@ function submitLink() {
   link4.value = null;
   link5.value = null;
 
-  console.log('on submitLink',links.value);
-
   for (let link of links.value) {
-    console.log("Link value", link);
+    if (link.name == null) {
+      continue;
+    }
 
     if (link1.value == null) {
       link1.value = link;
@@ -155,8 +142,6 @@ function submitLink() {
       continue;
     }
   }
-
-  console.log("Logged Link One", link1);
 }
 </script>
 

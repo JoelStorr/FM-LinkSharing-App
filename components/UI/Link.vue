@@ -12,8 +12,6 @@ const props = defineProps({
   name: String,
 });
 
-console.log(typeof props.name);
-
 const bgColor = computed(() => {
   switch (props.name) {
     case "GitHub":

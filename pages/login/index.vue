@@ -17,7 +17,7 @@
           >
             <img src="/images/icon-email.svg" />
             <template v-slot:error>
-                {{ emailErrorText }}
+              {{ emailErrorText }}
             </template>
           </UITextField>
         </label>
@@ -33,7 +33,7 @@
           >
             <img src="/images/icon-password.svg" />
             <template v-slot:error>
-                {{ passwordErrorText }}
+              {{ passwordErrorText }}
             </template>
           </UITextField>
         </label>
@@ -42,7 +42,7 @@
 
       <p id="form-switch">
         Don't have an account?
-        
+
         <NuxtLink to="/register" class="login-link">Create account</NuxtLink>
       </p>
     </div>
@@ -53,59 +53,48 @@
 import { ref } from "vue";
 
 definePageMeta({
-  layout: "noHeader"
+  layout: "noHeader",
 });
 
 const email = ref("");
 const password = ref("");
 
 const isEmailError = ref(false);
-const isPasswordError = ref(false)
+const isPasswordError = ref(false);
 
-const emailErrorText = ref("")
-const passwordErrorText = ref("")
+const emailErrorText = ref("");
+const passwordErrorText = ref("");
 
-function saveEmail(value){
-    console.log(value);
-    email.value = value;
-};
+function saveEmail(value) {
+  email.value = value;
+}
 
-function savePassword(value){
-    console.log(value);
-    password.value = value;
-};
-
+function savePassword(value) {
+  password.value = value;
+}
 
 function login() {
-    console.log('submitedt form');
+  isEmailError.value = false;
+  isPasswordError.value = false;
 
-    isEmailError.value = false
-    isPasswordError.value = false
+  if (email.value.length < 4) {
+    emailErrorText.value = "Please enter a email adress";
+    isEmailError.value = true;
+  } else {
+    emailErrorText.value = "";
+  }
+  if (password.value.length < 8) {
+    passwordErrorText.value = "Enter valid Password";
+    isPasswordError.value = true;
+  } else {
+    passwordErrorText.value = "";
+  }
 
-    if(email.value.length < 4){
-        emailErrorText.value = "Please enter a email adress";
-        isEmailError.value = true;
-    } else{
-        emailErrorText.value = ""
+  if (isEmailError.value || isPasswordError.value) {
+    return;
+  }
 
-    }
-    if(password.value.length < 8){
-        passwordErrorText.value ="Enter valid Password"
-        isPasswordError.value = true;
-    }else{
-        passwordErrorText.value = ""
-    }
-
-    if(isEmailError.value || isPasswordError.value){
-        return
-    }
-
-   navigateTo("/editor");
-    
-
-
-
-
+  navigateTo("/editor");
 }
 </script>
 
@@ -139,7 +128,6 @@ function login() {
   display: flex;
   flex-direction: column;
   width: 100%;
-  
 }
 
 #login-form label {

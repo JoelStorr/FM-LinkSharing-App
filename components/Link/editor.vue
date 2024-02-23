@@ -19,8 +19,7 @@
     </div>
 
     <div v-else class="link-edit-items">
-
-      <draggable 
+      <draggable
         v-model="links"
         :disabled="false"
         item-key="name"
@@ -31,14 +30,14 @@
         @end="dragging = false"
         handle=".handle"
       >
-      <template #item="{element: link}">
-          <UILinkEditComponent  :key="link.id" :link="link" @linkadded="eventPass"></UILinkEditComponent>
-      </template>
-      
-
+        <template #item="{ element: link }">
+          <UILinkEditComponent
+            :key="link.id"
+            :link="link"
+            @linkadded="eventPass"
+          ></UILinkEditComponent>
+        </template>
       </draggable>
-      
-    
     </div>
 
     <hr />
@@ -54,56 +53,41 @@
 import TextField from "~/components/UI/TextField.vue";
 import Dropdown from "../UI/Dropdown.vue";
 import ImageUploadVue from "../UI/ImageUpload.vue";
-import {useMainStore} from '~/store/index'
+import { useMainStore } from "~/store/index";
 
+const emits = defineEmits(["save", "linkadded"]);
 
+const props = defineProps({});
 
-const emits = defineEmits(['save', 'linkadded'])
-
-
-const props = defineProps({
-  
-});
-
-const store = useMainStore()
-const {addEmpty,add, reoderLinks} = store
+const store = useMainStore();
+const { addEmpty, add, reoderLinks } = store;
 
 const links = computed({
-  get(){
-    return store.links
+  get() {
+    return store.links;
   },
-  set(value){
-    console.log('Reorder Value', value)
-    reoderLinks(value)
-    emits('linkadded')
-  }
+  set(value) {
+    reoderLinks(value);
+    emits("linkadded");
+  },
+});
 
-})
+const dragging = useState("dragging", () => {
+  return false;
+});
 
-
-
-const dragging = useState('dragging', ()=>{return false} )
-
-function eventPass(){
-  console.log('event pass ran')
-  emits('linkadded')
+function eventPass() {
+  emits("linkadded");
 }
 
-function save(){
-  
-}
+function save() {}
 
-function addLink(){
+function addLink() {
   addEmpty();
 }
 
-function checkMove(e){
-   window.console.log("Future index: " + e.draggedContext.futureIndex);
-}
-
-
-function logger(value) {
-  console.log(value);
+function checkMove(e) {
+  window.console.log("Future index: " + e.draggedContext.futureIndex);
 }
 </script>
 
@@ -132,18 +116,15 @@ function logger(value) {
   padding: 5rem 20rem;
 }
 
-
-.link-edit-items{
+.link-edit-items {
   max-width: 100%;
   height: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:flex-start;
+  justify-content: flex-start;
   overflow: scroll;
 }
-
-
 
 h1 {
   padding: 0;
@@ -165,11 +146,10 @@ hr {
   flex: 1;
 }
 
-.list-group{
+.list-group {
   width: 100%;
 }
 .not-draggable {
   cursor: no-drop;
 }
-
 </style>

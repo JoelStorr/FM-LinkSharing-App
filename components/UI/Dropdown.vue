@@ -1,6 +1,10 @@
 <template>
   <div id="dropdown-holder">
-    <div @click="changeToggle" class="dropdown-field" :class="toggle ? 'active' : '' ">
+    <div
+      @click="changeToggle"
+      class="dropdown-field"
+      :class="toggle ? 'active' : ''"
+    >
       <div v-if="activeElement.name == null" class="field-content">
         <img src="/images/icon-link.svg" />
         <p>Dropdown Field</p>
@@ -28,7 +32,13 @@
       >
         <div>
           <img :src="option.icon" />
-          <p>{{option.name == activeElement.name ? option.name + ' (Selected)' : option.name}}</p>
+          <p>
+            {{
+              option.name == activeElement.name
+                ? option.name + " (Selected)"
+                : option.name
+            }}
+          </p>
         </div>
         <hr v-if="option.name !== options[options.length - 1].name" />
       </div>
@@ -39,12 +49,12 @@
 <script setup>
 // {id:String name: String, icon: String}
 const props = defineProps({
-    options: Array,
-    name: String,
-    icon: String
+  options: Array,
+  name: String,
+  icon: String,
 });
 
-const emits = defineEmits(['setActiveElement'])
+const emits = defineEmits(["setActiveElement"]);
 
 let toggle = ref(false);
 let selected = ref(null);
@@ -54,19 +64,15 @@ function changeToggle() {
   toggle.value = !toggle.value;
 }
 
-
 function setActiveElement(el) {
-  console.log(el)
-
-  activeElement.value = { name: el.name, icon: el.icon, link: el.link}
-    toggle.value = !toggle.value
-    emits('setActiveElement', activeElement.value)
+  activeElement.value = { name: el.name, icon: el.icon, link: el.link };
+  toggle.value = !toggle.value;
+  emits("setActiveElement", activeElement.value);
 }
 </script>
 
 <style scoped>
-
-#dropdown-holder{
+#dropdown-holder {
   position: relative;
 }
 
@@ -77,8 +83,8 @@ function setActiveElement(el) {
   background-color: white;
 }
 
-.dropdown-field:hover{
-    cursor: pointer;
+.dropdown-field:hover {
+  cursor: pointer;
 }
 
 .field-content {
@@ -96,9 +102,9 @@ function setActiveElement(el) {
   transform: rotate(180deg);
 }
 
-.active{
-     border: 1px solid #623CFF;
-    box-shadow: 0 0 20px #BEADFF;
+.active {
+  border: 1px solid #623cff;
+  box-shadow: 0 0 20px #beadff;
 }
 
 .dropdown-item div {
@@ -106,37 +112,37 @@ function setActiveElement(el) {
 }
 
 .activeEl img {
-    filter: brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(3954%) hue-rotate(245deg) brightness(97%) contrast(108%);
+  filter: brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(3954%)
+    hue-rotate(245deg) brightness(97%) contrast(108%);
 }
 .activeEl p {
   color: #623cff;
 }
 
-.options-container{
-    position: absolute;
-    z-index: 5;
-    margin-top: 2rem ;
-    padding: 0 1.5rem;
-    border: 1px solid #D9D9D9;
-    border-radius: 5px;
-    width: 90%;
-    height: 25rem;
-    background-color: white;
-    overflow: scroll;
+.options-container {
+  position: absolute;
+  z-index: 5;
+  margin-top: 2rem;
+  padding: 0 1.5rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  width: 90%;
+  height: 25rem;
+  background-color: white;
+  overflow: scroll;
 }
 
-.options-container:hover{
-    cursor: pointer;
+.options-container:hover {
+  cursor: pointer;
 }
 
 .options-container p {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
-hr{
-    border: none;
-    border-top: 1px solid #D9D9D9 ;
-    height: 0;
+hr {
+  border: none;
+  border-top: 1px solid #d9d9d9;
+  height: 0;
 }
-
 </style>

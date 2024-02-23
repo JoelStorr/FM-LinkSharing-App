@@ -17,7 +17,7 @@
           >
             <img src="/images/icon-email.svg" />
             <template v-slot:error>
-                {{ emailErrorText }}
+              {{ emailErrorText }}
             </template>
           </UITextField>
         </label>
@@ -33,7 +33,7 @@
           >
             <img src="/images/icon-password.svg" />
             <template v-slot:error>
-                {{ passwordErrorText }}
+              {{ passwordErrorText }}
             </template>
           </UITextField>
         </label>
@@ -48,7 +48,7 @@
           >
             <img src="/images/icon-password.svg" />
             <template v-slot:error>
-                {{ confirmPasswordErrorText }}
+              {{ confirmPasswordErrorText }}
             </template>
           </UITextField>
         </label>
@@ -57,8 +57,8 @@
       </form>
 
       <p id="form-switch">
-        Alredy have an account? 
-        
+        Alredy have an account?
+
         <NuxtLink to="/login" class="login-link">Login</NuxtLink>
       </p>
     </div>
@@ -69,7 +69,7 @@
 import { ref } from "vue";
 
 definePageMeta({
-  layout: "noHeader"
+  layout: "noHeader",
 });
 
 const email = ref("");
@@ -77,70 +77,62 @@ const password = ref("");
 const confirmPassword = ref("");
 
 const isEmailError = ref(false);
-const isPasswordError = ref(false)
-const isConfirmPasswordError = ref(false)
+const isPasswordError = ref(false);
+const isConfirmPasswordError = ref(false);
 
-const emailErrorText = ref("")
-const passwordErrorText = ref("")
-const confirmPasswordErrorText = ref("")
+const emailErrorText = ref("");
+const passwordErrorText = ref("");
+const confirmPasswordErrorText = ref("");
 
-function saveEmail(value){
-    console.log(value);
-    email.value = value;
-};
+function saveEmail(value) {
+  email.value = value;
+}
 
-function savePassword(value){
-    console.log(value);
-    password.value = value;
-};
+function savePassword(value) {
+  password.value = value;
+}
 
-function saveConfirmPassword(value){
-    console.log(value);
-    confirmPassword.value = value;
-};
-
+function saveConfirmPassword(value) {
+  confirmPassword.value = value;
+}
 
 function login() {
-    console.log('submitedt form');
+  isEmailError.value = false;
+  isPasswordError.value = false;
+  isConfirmPasswordError.value = false;
 
-    isEmailError.value = false
-    isPasswordError.value = false
-    isConfirmPasswordError.value = false
+  if (email.value.length < 4) {
+    emailErrorText.value = "Please enter a email adress";
+    isEmailError.value = true;
+  } else {
+    emailErrorText.value = "";
+  }
+  if (password.value.length < 8) {
+    passwordErrorText.value = "Pleas enter a valid password";
+    isPasswordError.value = true;
+  } else {
+    passwordErrorText.value = "";
+  }
 
-    if(email.value.length < 4){
-        emailErrorText.value = "Please enter a email adress";
-        isEmailError.value = true;
-    } else{
-        emailErrorText.value = ""
+  if (confirmPassword.value != password.value) {
+    confirmPasswordErrorText.value = "Pleas enter a valid password";
+    isConfirmPasswordError.value = true;
+  } else if (confirmPassword.value.length < 8) {
+    confirmPasswordErrorText.value = "Both passwords need to match";
+    isConfirmPasswordError.value = true;
+  } else {
+    confirmPasswordErrorText.value = "";
+  }
 
-    }
-    if(password.value.length < 8){
-        passwordErrorText.value ="Pleas enter a valid password"
-        isPasswordError.value = true;
-    }else{
-        passwordErrorText.value = ""
-    }
+  if (
+    isEmailError.value ||
+    isPasswordError.value ||
+    isConfirmPasswordError.value
+  ) {
+    return;
+  }
 
-    if(confirmPassword.value != password.value){
-        confirmPasswordErrorText.value = "Pleas enter a valid password"
-        isConfirmPasswordError.value = true;
-    }else if (confirmPassword.value.length < 8){
-        confirmPasswordErrorText.value = "Both passwords need to match"
-        isConfirmPasswordError.value = true;
-    }else {
-        confirmPasswordErrorText.value = ""
-    }
-
-    if(isEmailError.value || isPasswordError.value || isConfirmPasswordError.value){
-        return
-    }
-
-   navigateTo("/editor");
-    
-
-
-
-
+  navigateTo("/editor");
 }
 </script>
 
@@ -174,7 +166,6 @@ function login() {
   display: flex;
   flex-direction: column;
   width: 100%;
-  
 }
 
 #login-form label {

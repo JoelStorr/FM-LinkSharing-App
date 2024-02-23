@@ -29,8 +29,8 @@
             :error="isFirstNameError"
           >
             <img />
-            <template v-slot:error>{{firstNameError}}</template>
-        </UITextField>
+            <template v-slot:error>{{ firstNameError }}</template>
+          </UITextField>
         </label>
         <label for="lastName">
           Last name*
@@ -43,8 +43,8 @@
             :error="isLastNameError"
           >
             <img />
-            <template v-slot:error>{{lastNameError}}</template>
-        </UITextField>
+            <template v-slot:error>{{ lastNameError }}</template>
+          </UITextField>
         </label>
         <label for="email">
           Email
@@ -57,7 +57,7 @@
             :error="isEmailError"
           >
             <img />
-            <template v-slot:error>{{emailError}}</template>
+            <template v-slot:error>{{ emailError }}</template>
           </UITextField>
         </label>
       </form>
@@ -72,67 +72,57 @@
 
 <script setup>
 import { useMainStore } from "~/store/index";
-import {emailRegEx} from "~/components/Helper"
+import { emailRegEx } from "~/components/Helper";
 
 const store = useMainStore();
 const { addFristName, addLastName, addEmail } = store;
 
 const firstName = ref("");
-const isFirstNameError = ref(false)
-const firstNameError = ref("")
+const isFirstNameError = ref(false);
+const firstNameError = ref("");
 const lastName = ref("");
-const isLastNameError = ref(false)
-const lastNameError = ref("")
+const isLastNameError = ref(false);
+const lastNameError = ref("");
 const email = ref("");
-const isEmailError = ref(false)
-const emailError = ref("")
-
+const isEmailError = ref(false);
+const emailError = ref("");
 
 let timerFirst = null;
 let timerLast = null;
-let timerEmail = null
+let timerEmail = null;
 
 function onFirstNameChange(value) {
-
-  if(timerFirst != null){
-    clearTimeout(timerFirst)
+  if (timerFirst != null) {
+    clearTimeout(timerFirst);
   }
 
-  timerFirst = setTimeout(()=>{
-
-    if(value.length < 2){
-     
-      isFirstNameError.value = true
-      firstNameError.value = "Can't be empty"
-    } else{
+  timerFirst = setTimeout(() => {
+    if (value.length < 2) {
+      isFirstNameError.value = true;
+      firstNameError.value = "Can't be empty";
+    } else {
       addFristName(value);
       isFirstNameError.value = false;
-      firstNameError.value = ""
+      firstNameError.value = "";
     }
-
-  },1000)
-
+  }, 1000);
 }
 
 function onLastNameChange(value) {
-
-   if(timerLast != null){
-    clearTimeout(timerLast)
+  if (timerLast != null) {
+    clearTimeout(timerLast);
   }
 
-  timerLast = setTimeout(()=>{
-
-    if(value.length < 2){
-      isLastNameError.value = true
-      lastNameError.value = "Can't be empty"
-    } else{
+  timerLast = setTimeout(() => {
+    if (value.length < 2) {
+      isLastNameError.value = true;
+      lastNameError.value = "Can't be empty";
+    } else {
       addLastName(value);
       isLastNameError.value = false;
-      lastNameError.value = ""
+      lastNameError.value = "";
     }
-
-  },1000)
-
+  }, 1000);
 }
 
 function onEmailChange(value) {
@@ -142,13 +132,12 @@ function onEmailChange(value) {
 
   timerEmail = setTimeout(() => {
     if (emailRegEx.test(value)) {
-      console.log("Email Valid");
-      emailError.value = ""
-      isEmailError.value = false
+      emailError.value = "";
+      isEmailError.value = false;
       addEmail(value);
-    } else{
-      emailError.value = "Invalid email adress"
-      isEmailError.value = true
+    } else {
+      emailError.value = "Invalid email adress";
+      isEmailError.value = true;
     }
   }, 1000);
 
