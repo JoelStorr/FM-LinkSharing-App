@@ -63,6 +63,9 @@ const linkNumber = computed(() => {
 });
 
 function onActiveElement(value) {
+
+  console.log('Ran in update')
+
   activeLinkElement.value = {
     ...activeLinkElement.value,
     name: value.name,
@@ -72,7 +75,10 @@ function onActiveElement(value) {
       
   };
 
-  if (linkValidated.value && activeLinkElement.value.id != null) {
+  if (isValidUrl(activeLinkElement.value.link) && activeLinkElement.value.id != null) {
+
+    console.log("Ran after id validation")
+
     add(activeLinkElement.value);
     emits("linkadded");
   }
