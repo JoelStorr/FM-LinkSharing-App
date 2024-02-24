@@ -62,6 +62,7 @@
         </label>
       </form>
     </div>
+    <div class="mobile-spacer"></div>
     <hr />
     <div class="btn-holder">
       <div class="btn-spacer"></div>
@@ -206,4 +207,23 @@ form:last-child {
   width: 500px;
   flex: 1;
 }
+
+@media only screen and (max-width: 1025px) {
+ 
+  #profile-editor{
+    justify-content: flex-start;
+  }
+ 
+  .image-upload-holder {
+    margin: 3rem 0 4rem 0;
+  }
+  .mobile-spacer{
+    flex: 1;
+  }
+
+  .btn-holder{
+    margin: 2rem 0 2rem 0;
+  }
+}
+
 </style>

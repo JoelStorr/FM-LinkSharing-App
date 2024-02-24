@@ -150,5 +150,14 @@
     }
 
 
+    @media only screen and (max-width: 1025px) {
+
+        .contact-card{
+            min-width: 40%;
+            max-width: 75%;
+            padding: 5rem 5rem 4.5rem 5rem;
+        }
+
+    }
 
 </style>

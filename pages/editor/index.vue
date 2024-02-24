@@ -269,4 +269,21 @@ function submitLink() {
   border-radius: 2.5rem;
   display: flex;
 }
+
+@media only screen and (max-width: 1025px) {
+  .phonePreview{
+    display: none;
+  }
+
+  .mainView{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .editor{
+    width: 100%;
+  }
+}
+
 </style>

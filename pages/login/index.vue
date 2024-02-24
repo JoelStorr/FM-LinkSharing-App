@@ -146,4 +146,12 @@ h1 {
   margin: 0;
   padding: 0;
 }
+
+@media only screen and (max-width: 1025px) {
+  #login-content-holder{
+    width: 60vw;
+  }
+}
+
+
 </style>
