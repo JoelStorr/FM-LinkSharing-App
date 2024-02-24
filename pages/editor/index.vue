@@ -271,24 +271,21 @@ function submitLink() {
 }
 
 @media only screen and (max-width: 1025px) {
-  .phonePreview{
+  .phonePreview {
     display: none;
   }
 
-  .mainView{
+  .mainView {
     width: 100%;
     align-items: center;
     justify-content: center;
   }
 
-  .editor{
+  .editor {
     width: 100%;
   }
 
   @media only screen and (max-width: 450px) {
-    
-    
   }
 }
-
 </style>

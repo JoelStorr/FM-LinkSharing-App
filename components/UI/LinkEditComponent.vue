@@ -50,7 +50,7 @@ const activeLinkElement = ref({
   name: props.link.name ?? null,
   icon: props.link.icon ?? "/images/icon-links-header.svg",
   link: props.link.link ?? null,
-  placeholder: props.link.placeholder ?? null
+  placeholder: props.link.placeholder ?? null,
 });
 
 const hasError = ref(false);
@@ -63,22 +63,18 @@ const linkNumber = computed(() => {
 });
 
 function onActiveElement(value) {
-
-  console.log('Ran in update')
-
   activeLinkElement.value = {
     ...activeLinkElement.value,
     name: value.name,
     icon: value.icon,
     link: activeLinkElement.value.link,
-    placeholder: value.link
-      
+    placeholder: value.link,
   };
 
-  if (isValidUrl(activeLinkElement.value.link) && activeLinkElement.value.id != null) {
-
-    console.log("Ran after id validation")
-
+  if (
+    isValidUrl(activeLinkElement.value.link) &&
+    activeLinkElement.value.id != null
+  ) {
     add(activeLinkElement.value);
     emits("linkadded");
   }
@@ -108,7 +104,7 @@ function linkValidation(value) {
     if (value.length < 1) {
       errorMessage.value = "Can't be empty";
       hasError.value = true;
-     activeLinkElement.value = {
+      activeLinkElement.value = {
         ...activeLinkElement.value,
         link: value,
       };

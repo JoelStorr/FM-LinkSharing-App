@@ -23,7 +23,7 @@
           <div class="form-spacer"></div>
           <UITextField
             type="text"
-            :placeholder-text="firstName?? 'e.g. John'"
+            :placeholder-text="firstName ?? 'e.g. John'"
             field-id="firstName"
             @on-value-change="onFirstNameChange"
             :error="isFirstNameError"
@@ -209,55 +209,49 @@ form:last-child {
 }
 
 @media only screen and (max-width: 1025px) {
- 
-  #profile-editor{
+  #profile-editor {
     justify-content: flex-start;
     overflow-x: scroll;
   }
- 
+
   .image-upload-holder {
     margin: 3rem 0 4rem 0;
   }
-  .mobile-spacer{
+  .mobile-spacer {
     flex: 1;
   }
 
-  .btn-holder{
+  .btn-holder {
     margin: 2rem 0 2rem 0;
   }
 }
 
-
 @media only screen and (max-width: 450px) {
-  .image-upload-holder{
+  .image-upload-holder {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
   }
 
-
-  label{
+  label {
     flex-direction: column;
     align-items: flex-start;
   }
 
-
-  hr{
+  hr {
     margin-top: 2rem;
   }
 
-  .btn-holder{
+  .btn-holder {
     width: 100%;
     display: block;
   }
-  .btn-spacer{
+  .btn-spacer {
     display: none;
   }
 
-  .save-btn{
+  .save-btn {
     width: 100%;
   }
-
 }
-
 </style>

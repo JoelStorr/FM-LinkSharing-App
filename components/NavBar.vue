@@ -21,14 +21,11 @@
     </div>
 
     <UIButtonSecondary @on-click="navigateToProfiel" :icon-only="true">
-      <template v-slot:text>
-        Preview
-      </template>
-      
+      <template v-slot:text> Preview </template>
+
       <template v-slot:icon>
         <img src="/images/icon-preview-header.svg" />
       </template>
-      
     </UIButtonSecondary>
   </div>
 </template>
@@ -83,12 +80,9 @@ img {
   justify-content: space-between;
 }
 
-
 @media only screen and (max-width: 450px) {
-  .mobile-name{
+  .mobile-name {
     display: none;
   }
 }
-
-
 </style>

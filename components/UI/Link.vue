@@ -1,5 +1,10 @@
 <template>
-  <NuxtLink class="link" :class="bgColor" :to="externalLink" :target="props.link ?'_blank': ''">
+  <NuxtLink
+    class="link"
+    :class="bgColor"
+    :to="externalLink"
+    :target="props.link ? '_blank' : ''"
+  >
     <img :src="props.iconSrc" :class="iconDark" />
     <p :class="darkText">{{ props.name }}</p>
     <img src="/images/icon-arrow-right.svg" :class="darkArrow" />
@@ -10,28 +15,24 @@
 const props = defineProps({
   iconSrc: String,
   name: String,
-  link: String
+  link: String,
 });
 
-
-const externalLink = computed(()=>{
-
-  if(props.link == null){
-    return ''
+const externalLink = computed(() => {
+  if (props.link == null) {
+    return "";
   }
-  const linkpartialhttp = props.link.slice(0,4)
-  const linkpartialhttps = props.link.slice(0,5)
-  
-  if(linkpartialhttp != "http" || linkpartialhttps != "https"){
-    return "https://"+props.link
-  }else{
-    return props.link
+  const linkpartialhttp = props.link.slice(0, 4);
+  const linkpartialhttps = props.link.slice(0, 5);
+
+  if (linkpartialhttp != "http" || linkpartialhttps != "https") {
+    return "https://" + props.link;
+  } else {
+    return props.link;
   }
-})
+});
 
 let bgColor = computed(() => {
-console.log(props.name)
-
   switch (props.name) {
     case "GitHub":
       return "github";
@@ -56,32 +57,29 @@ console.log(props.name)
     case "freeCodeCamp":
       return "freecodecamp";
     case "GitLab":
-        return "gitlab";
+      return "gitlab";
     case "Hashnode":
       return "hashnode";
     case "Stack Overflow":
-      return "stackoverflow"
+      return "stackoverflow";
   }
 });
 
-let darkArrow = computed(()=>{
-  console.log(props.name)
-  return props.name == "Frontend Mentor" ? "arrow-dark" : ""
+let darkArrow = computed(() => {
+  return props.name == "Frontend Mentor" ? "arrow-dark" : "";
 });
 
-let darkText = computed(()=>{
-  return props.name == "Frontend Mentor" ? "dark-text" : "light-text"
+let darkText = computed(() => {
+  return props.name == "Frontend Mentor" ? "dark-text" : "light-text";
 });
 
-let iconDark = computed(()=>{
-  if (props.name == "Frontend Mentor" || props.name == "Dev.to" ){
-    return ""
-  } else{
-    return  "icon"
+let iconDark = computed(() => {
+  if (props.name == "Frontend Mentor" || props.name == "Dev.to") {
+    return "";
+  } else {
+    return "icon";
   }
-  
-})
-
+});
 </script>
 
 <style scoped>
@@ -102,11 +100,11 @@ p {
   flex: 1;
 }
 
-.dark-text{
+.dark-text {
   color: #333333;
 }
 
-.light-text{
+.light-text {
   color: white;
 }
 
@@ -116,63 +114,63 @@ p {
   scale: 1.2;
 }
 
-.arrow-dark{
-  filter: brightness(0) saturate(100%) invert(48%) sepia(18%) saturate(0%) hue-rotate(293deg) brightness(90%) contrast(90%);
+.arrow-dark {
+  filter: brightness(0) saturate(100%) invert(48%) sepia(18%) saturate(0%)
+    hue-rotate(293deg) brightness(90%) contrast(90%);
 }
 
 .github {
   background-color: #1a1a1a;
 }
-.forntendmentor{
+.forntendmentor {
   background-color: #fff;
   border: 1px solid #737373;
 }
-.twitter{
-  background-color: #43B7E9;
+.twitter {
+  background-color: #43b7e9;
 }
 
-.linkedin{
-  background-color: #2E67FD;
+.linkedin {
+  background-color: #2e67fd;
 }
 
-.youtube{
-  background-color: #EE393A;
+.youtube {
+  background-color: #ee393a;
 }
 
-.facebook{
-  background-color: #2342AC;
+.facebook {
+  background-color: #2342ac;
 }
 
-.twitch{
-  background-color: #EE42C8;
+.twitch {
+  background-color: #ee42c8;
 }
 
-.devto{
+.devto {
   background-color: #333333;
 }
 
-.codewars{
-  background-color: #8A1B50;
+.codewars {
+  background-color: #8a1b50;
 }
 
-.codepen{
-  background-color: #5F6061;
+.codepen {
+  background-color: #5f6061;
 }
 
-.freecodecamp{
-  background-color: #302267 ;
+.freecodecamp {
+  background-color: #302267;
 }
 
-.gitlab{
-  background-color: #EB4925;
+.gitlab {
+  background-color: #eb4925;
 }
 
-.hashnode{
-  background-color: #0435D1;
+.hashnode {
+  background-color: #0435d1;
 }
 
-.stackoverflow{
-  background-color: #EC7100;
+.stackoverflow {
+  background-color: #ec7100;
 }
-
 </style>

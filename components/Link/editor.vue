@@ -7,10 +7,7 @@
     </p>
 
     <UIButtonSecondary @click="addLink">
-      <template v-slot:text>
-
-        + Add new Link
-      </template>
+      <template v-slot:text> + Add new Link </template>
     </UIButtonSecondary>
 
     <div class="emptyHolder" v-if="links.length == 0">
@@ -49,7 +46,9 @@
 
     <div class="btn-holder">
       <div class="btn-spacer"></div>
-      <UIButtonPrimary class="save-btn" :disabled="false" @on-click="save">Save</UIButtonPrimary>
+      <UIButtonPrimary class="save-btn" :disabled="false" @on-click="save"
+        >Save</UIButtonPrimary
+      >
     </div>
   </div>
 </template>
@@ -92,7 +91,7 @@ function addLink() {
 }
 
 function checkMove(e) {
-  window.console.log("Future index: " + e.draggedContext.futureIndex);
+  //window.console.log("Future index: " + e.draggedContext.futureIndex);
 }
 </script>
 
@@ -159,25 +158,22 @@ hr {
 }
 
 @media only screen and (max-width: 450px) {
-
-  .emptyHolder{
+  .emptyHolder {
     width: 100%;
     padding: 2rem;
     border-radius: 25px;
   }
 
-  .btn-holder{
+  .btn-holder {
     width: 100%;
     display: block;
   }
-  .btn-spacer{
+  .btn-spacer {
     display: none;
   }
 
-  .save-btn{
+  .save-btn {
     width: 100%;
   }
-
 }
-
 </style>
