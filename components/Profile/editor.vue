@@ -66,7 +66,7 @@
     <hr />
     <div class="btn-holder">
       <div class="btn-spacer"></div>
-      <UIButtonPrimary :disabled="true">Save</UIButtonPrimary>
+      <UIButtonPrimary class="save-btn" :disabled="true">Save</UIButtonPrimary>
     </div>
   </div>
 </template>
@@ -212,6 +212,7 @@ form:last-child {
  
   #profile-editor{
     justify-content: flex-start;
+    overflow-x: scroll;
   }
  
   .image-upload-holder {
@@ -224,6 +225,39 @@ form:last-child {
   .btn-holder{
     margin: 2rem 0 2rem 0;
   }
+}
+
+
+@media only screen and (max-width: 450px) {
+  .image-upload-holder{
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+
+  label{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  hr{
+    margin-top: 2rem;
+  }
+
+  .btn-holder{
+    width: 100%;
+    display: block;
+  }
+  .btn-spacer{
+    display: none;
+  }
+
+  .save-btn{
+    width: 100%;
+  }
+
 }
 
 </style>

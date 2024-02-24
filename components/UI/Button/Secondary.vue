@@ -1,6 +1,13 @@
 <template>
     <button @click="emit('onClick')" :disabled="props.disabled">
-        <slot />
+        <div :class="props.iconOnly ? 'btn-icon' : ''">
+            <slot  name="icon"></slot>
+
+        </div>
+        <div :class="props.iconOnly ? 'btn-text' : ''">
+        <slot name="text"></slot>
+        
+        </div>
     </button>
 
 </template>
@@ -9,7 +16,8 @@
 <script setup>
 
     const props = defineProps({
-        disabled: Boolean
+        disabled: Boolean,
+        iconOnly: Boolean
     })
 
     const emit = defineEmits(['onClick']);
@@ -39,5 +47,28 @@
         background-color: rgba(0,0,0,0);
          border: 1px solid #EFEBFF;
          color: #EFEBFF;
+    }
+
+    .btn-icon{
+        display: none;
+    }
+
+    @media only screen and (max-width: 450px) {
+
+        button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+
+        }
+        .btn-icon{
+            display: contents;
+
+        }
+
+        .btn-text{
+            display: none;
+        }
     }
 </style>

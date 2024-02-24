@@ -2,7 +2,7 @@
 
     <button class="tag" :class="props.active ? 'active' : ''" @click="emits('clicked')">
         <img :src="props.imgSrc" />
-        <p><slot /></p>
+        <p class="mobile-text"><slot /></p>
     </button>
 
 </template>
@@ -53,4 +53,15 @@
     .active img{
         filter: brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(3954%) hue-rotate(245deg) brightness(97%) contrast(108%);
     }
+
+
+    @media only screen and (max-width: 450px) {
+
+        .tag{
+            padding: 1.2rem 3rem;
+        }
+
+        .mobile-text{display: none;}
+    }
+
 </style>

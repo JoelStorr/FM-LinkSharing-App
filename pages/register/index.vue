@@ -1,6 +1,6 @@
 <template>
   <div id="login-screen">
-    <img src="/images/logo-devlinks-large.svg" />
+    <img src="/images/logo-devlinks-large.svg" class="logo" />
 
     <div id="login-content-holder">
       <h1>Create account</h1>
@@ -189,6 +189,36 @@ h1 {
   #login-content-holder{
     width: 60vw;
   }
+}
+@media only screen and (max-width: 450px) {
+  
+  #login-screen{
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: white;
+  }
+  
+  #login-content-holder{
+    margin-top: 2rem;
+    padding: 3rem;
+    width: 100vw;
+  }
+
+  .logo{
+    padding: 4rem 0 2rem  2rem;
+  }
+
+  .login-link{
+    display: block;
+  }
+
+  #form-switch{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
 }
 
 </style>

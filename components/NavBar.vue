@@ -2,7 +2,7 @@
   <div id="navbar">
     <div class="logo-holder">
       <img src="/images/logo-devlinks-small.svg" />
-      <h1>devlinks</h1>
+      <h1 class="mobile-name">devlinks</h1>
     </div>
 
     <div class="tabs-holder">
@@ -20,7 +20,16 @@
       >
     </div>
 
-    <UIButtonSecondary @on-click="navigateToProfiel">Preview</UIButtonSecondary>
+    <UIButtonSecondary @on-click="navigateToProfiel" :icon-only="true">
+      <template v-slot:text>
+        Preview
+      </template>
+      
+      <template v-slot:icon>
+        <img src="/images/icon-preview-header.svg" />
+      </template>
+      
+    </UIButtonSecondary>
   </div>
 </template>
 
@@ -56,7 +65,7 @@ function navigateToProfiel() {
   justify-content: space-between;
   background-color: white;
   border-radius: 25px;
-  padding: 0 2rem;
+  padding: 2rem;
 }
 
 .logo-holder {
@@ -73,4 +82,13 @@ img {
   display: flex;
   justify-content: space-between;
 }
+
+
+@media only screen and (max-width: 450px) {
+  .mobile-name{
+    display: none;
+  }
+}
+
+
 </style>

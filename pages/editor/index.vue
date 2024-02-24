@@ -284,6 +284,11 @@ function submitLink() {
   .editor{
     width: 100%;
   }
+
+  @media only screen and (max-width: 450px) {
+    
+    
+  }
 }
 
 </style>

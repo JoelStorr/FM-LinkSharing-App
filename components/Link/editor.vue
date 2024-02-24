@@ -6,7 +6,12 @@
       world
     </p>
 
-    <UIButtonSecondary @click="addLink">+ Add new Link</UIButtonSecondary>
+    <UIButtonSecondary @click="addLink">
+      <template v-slot:text>
+
+        + Add new Link
+      </template>
+    </UIButtonSecondary>
 
     <div class="emptyHolder" v-if="links.length == 0">
       <img src="/images/illustration-empty.svg" />
@@ -44,7 +49,7 @@
 
     <div class="btn-holder">
       <div class="btn-spacer"></div>
-      <UIButtonPrimary :disabled="false" @on-click="save">Save</UIButtonPrimary>
+      <UIButtonPrimary class="save-btn" :disabled="false" @on-click="save">Save</UIButtonPrimary>
     </div>
   </div>
 </template>
@@ -152,4 +157,27 @@ hr {
 .not-draggable {
   cursor: no-drop;
 }
+
+@media only screen and (max-width: 450px) {
+
+  .emptyHolder{
+    width: 100%;
+    padding: 2rem;
+    border-radius: 25px;
+  }
+
+  .btn-holder{
+    width: 100%;
+    display: block;
+  }
+  .btn-spacer{
+    display: none;
+  }
+
+  .save-btn{
+    width: 100%;
+  }
+
+}
+
 </style>
