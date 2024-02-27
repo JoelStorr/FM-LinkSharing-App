@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
-import axios from 'axios';
+import axios from "axios";
 
 const URL = "http://127.0.0.1:8000";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
+    token: null,
     links: [],
     profile: {
       firstName: null,
@@ -68,20 +69,53 @@ export const useMainStore = defineStore("main", {
       formdata.append("username", email);
       formdata.append("password", password);
 
+      let { data } = await axios.post(
+        "http://127.0.0.1:8000/auth/token",
+        formdata
+      );
 
+      return data["access_token"];
+    },
 
-      let {data} = await axios.post("http://127.0.0.1:8000/auth/token", formdata);
-      return data
+    async registerUser(email, password) {
+      
+      let data = JSON.stringify({
+        email: email,
+        password: password,
+      });
+
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "http://127.0.0.1:8000/auth/register",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          return response
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     async getShareProfile() {
-      try {
-        let { data } = await useFetch(`${URL}/share/${"Joel-Storr-1"}`);
-        console.log(data);
-        return data;
-      } catch (error) {
-        console.log(error);
-      }
+      let { data } = await axios.get(`${URL}/share/${"Joel-Storr-1"}`);
+      console.log(data);
+      return data;
     },
+
+
+    // NOTE: Helplers
+     accessToken(token){
+      this.token = token;
+     }
   },
 });

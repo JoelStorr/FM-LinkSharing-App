@@ -51,10 +51,30 @@
 
 <script setup>
 import { ref } from "vue";
+import { useMainStore } from "~/store/index";
 
 definePageMeta({
   layout: "noHeader",
 });
+
+const store = useMainStore();
+const {loginUser} = store;
+
+let token = useCookie('access_token');
+
+// definePageMeta({
+//   middleware: [
+//     function (to, from) {
+      
+//       if(!store.token){
+//         return navigateTo("/login");
+//       }
+
+//     },
+//   ],
+// });
+
+
 
 const email = ref("");
 const password = ref("");
@@ -73,7 +93,8 @@ function savePassword(value) {
   password.value = value;
 }
 
-function login() {
+
+async function login() {
   isEmailError.value = false;
   isPasswordError.value = false;
 
@@ -94,7 +115,14 @@ function login() {
     return;
   }
 
-  navigateTo("/editor");
+  let data = await loginUser(email.value, password.value)
+  if(data){
+    
+    token.value = data
+    navigateTo("/editor");
+    return
+  }
+
 }
 </script>
 

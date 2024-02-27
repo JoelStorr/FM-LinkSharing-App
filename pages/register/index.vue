@@ -67,6 +67,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useMainStore } from "~/store/index";
+
+const store = useMainStore();
+const { registerUser } = store;
+
 
 definePageMeta({
   layout: "noHeader",
@@ -132,7 +137,9 @@ function login() {
     return;
   }
 
-  navigateTo("/editor");
+
+  registerUser(email.value, password.value)
+  navigateTo("/login");
 }
 </script>
 

@@ -72,6 +72,24 @@ import { useMainStore } from "~/store/index";
 const store = useMainStore();
 const { add, remove } = store;
 
+let token = useCookie('access_token');
+
+definePageMeta({
+  middleware: [
+    function (to, from) {
+      let token = useCookie('access_token');
+      if(!token.value){
+        return navigateTo("/login");
+      }
+
+    },
+  ],
+});
+
+
+
+
+
 const isLinkEditor = ref(true);
 
 const link1 = useState("link1", () => {
