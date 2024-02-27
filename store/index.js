@@ -139,6 +139,9 @@ export const useMainStore = defineStore("main", {
       .then((response) => {
         console.log(response.data);
 
+
+        response.data.sort((a,b)=> a.position - b.position)
+
         // Add To Store
         for (let link of response.data){
           console.log(link.id)
