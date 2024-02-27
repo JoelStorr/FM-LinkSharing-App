@@ -80,6 +80,10 @@ export const useMainStore = defineStore("main", {
       return data["access_token"];
     },
 
+    setToken(token){
+      this.token = token
+    },
+
     async registerUser(email, password) {
       
       let data = JSON.stringify({
@@ -128,7 +132,24 @@ export const useMainStore = defineStore("main", {
 
       await axios.request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        console.log(response.data);
+
+        // Add To Store
+        for (let link of response.data){
+          console.log(link.id)
+          this.links.push({
+            id: link.id,
+            name: link.name,
+            icon: link.icon,
+            link: link.link,
+            placeholder: link.placeholder,
+          });
+        }
+
+
+
+
+
         return JSON.stringify(response.data)
       })
       .catch((error) => {
