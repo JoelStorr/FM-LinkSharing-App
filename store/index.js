@@ -13,7 +13,7 @@ export const useMainStore = defineStore("main", {
       lastName: null,
       email: null,
       image: null,
-      shareLink: null
+      shareLink: null,
     },
   }),
 
@@ -26,7 +26,7 @@ export const useMainStore = defineStore("main", {
         icon: null,
         link: null,
         placeholder: null,
-        edit: null
+        edit: null,
       });
     },
 
@@ -36,7 +36,7 @@ export const useMainStore = defineStore("main", {
       this.links[index].icon = link.icon;
       this.links[index].link = link.link;
       this.links[index].placeholder = link.placeholder;
-      this.links[index].edit = this.links[index].edit == null ? null : true
+      this.links[index].edit = this.links[index].edit == null ? null : true;
     },
 
     remove(id) {
@@ -67,6 +67,7 @@ export const useMainStore = defineStore("main", {
 
     addImage(image) {
       this.profile.image = image;
+      console.log(image)
     },
 
     addShareLink(link) {
@@ -90,12 +91,11 @@ export const useMainStore = defineStore("main", {
       return data["access_token"];
     },
 
-    setToken(token){
-      this.token = token
+    setToken(token) {
+      this.token = token;
     },
 
     async registerUser(email, password) {
-      
       let data = JSON.stringify({
         email: email,
         password: password,
@@ -116,88 +116,114 @@ export const useMainStore = defineStore("main", {
         .request(config)
         .then((response) => {
           console.log(JSON.stringify(response.data));
-          return response
+          return response;
         })
         .catch((error) => {
           console.log(error);
         });
     },
 
-
     // NOTE: Links
 
     //Get Links from Server
-    async getLinks(){
+    async getLinks() {
       let config = {
-        method: 'get',
+        method: "get",
         maxBodyLength: Infinity,
-        url: 'http://127.0.0.1:8000/links',
-        headers: { 
-          'Accept': 'application/json', 
-          'Authorization': `Bearer ${this.token}`
+        url: "http://127.0.0.1:8000/links",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${this.token}`,
         },
       };
 
-      console.log(this.token)
+      console.log(this.token);
 
-      await axios.request(config)
-      .then((response) => {
-        console.log(response.data);
+      await axios
+        .request(config)
+        .then((response) => {
+          console.log(response.data);
 
+          response.data.sort((a, b) => a.position - b.position);
 
-        response.data.sort((a,b)=> a.position - b.position)
+          // Add To Store
+          for (let link of response.data) {
+            console.log(link.id);
+            this.links.push({
+              id: link.id,
+              position: link.position,
+              name: link.name,
+              icon: link.icon,
+              link: link.link,
+              placeholder: link.placeholder,
+              edit: false,
+            });
+          }
 
-        // Add To Store
-        for (let link of response.data){
-          console.log(link.id)
-          this.links.push({
-            id: link.id,
-            position: link.position,
-            name: link.name,
-            icon: link.icon,
-            link: link.link,
-            placeholder: link.placeholder,
-            edit: false
-          });
-        }
+          return JSON.stringify(response.data);
+        })
+        .catch((error) => {
+          if (error.response.status == 401) {
+            console.log(error.response.status);
+            throw new Error("401");
+          }
+        });
+    },
 
-        return JSON.stringify(response.data)
-      })
-      .catch((error) => {
-        
-        if (error.response.status == 401){
-          console.log(error.response.status);
-          throw new Error('401')
-        }
+    // NOTE: Profile
+    // get profile informations
+    async getUserProfile() {
+      let data = "";
 
-      });
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://127.0.0.1:8000/profile",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        data: data,
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+
+          this.addFristName(response.data["first_name"]);
+          this.addLastName(response.data["last_name"]);
+          this.addEmail(response.data["public_email"]);
+          this.addShareLink(response.data["share_link"]);
+
+          console.log(this.profile);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     //Save Links to server
-    async saveData(){
-
-        // Handle Order of links
-        for(let i = 0; i < this.links.length; i++ ){
-          if(this.links[i].position != i){
-            this.links[i].position = i;
-            this.links[i].edit = this.links[i].edit == null ? null : true
-          }
+    async saveData() {
+      // Handle Order of links
+      for (let i = 0; i < this.links.length; i++) {
+        if (this.links[i].position != i) {
+          this.links[i].position = i;
+          this.links[i].edit = this.links[i].edit == null ? null : true;
         }
+      }
 
-
-
-
-      for(let link of this.links){
-        console.log(link['id'])
-        //check if link is new 
-        if (link['edit'] == null){
+      for (let link of this.links) {
+        console.log(link["id"]);
+        //check if link is new
+        if (link["edit"] == null) {
           //add new link
           let data = JSON.stringify({
-            position: link['position'],
-            name: link['name'],
-            icon: link['icon'],
-            link: link['link'],
-            placeholder: link['placeholder'],
+            position: link["position"],
+            name: link["name"],
+            icon: link["icon"],
+            link: link["link"],
+            placeholder: link["placeholder"],
           });
 
           let config = {
@@ -206,7 +232,7 @@ export const useMainStore = defineStore("main", {
             url: "http://127.0.0.1:8000/links",
             headers: {
               Accept: "application/json",
-              Authorization:`Bearer ${this.token}`,
+              Authorization: `Bearer ${this.token}`,
               "Content-Type": "application/json",
             },
             data: data,
@@ -221,18 +247,16 @@ export const useMainStore = defineStore("main", {
             .catch((error) => {
               console.log(error);
             });
-
-        }else if(link['edit'] == true){
-
+        } else if (link["edit"] == true) {
           // update existing link
-          
+
           let data = JSON.stringify({
-            id: link['id'],
-            position: link['position'],
-            name: link['name'],
-            icon: link['icon'],
-            link: link['link'],
-            placeholder:link['placeholder'],
+            id: link["id"],
+            position: link["position"],
+            name: link["name"],
+            icon: link["icon"],
+            link: link["link"],
+            placeholder: link["placeholder"],
           });
 
           let config = {
@@ -255,19 +279,16 @@ export const useMainStore = defineStore("main", {
             .catch((error) => {
               console.log(error);
             });
-
         }
 
-
         // Handle Profile Informations
-
       }
 
-
-      if (this.removedLinks.length > 0){
-        for(let id of this.removedLinks){
+      // Handle removed links
+      if (this.removedLinks.length > 0) {
+        for (let id of this.removedLinks) {
           let data = "";
-  
+
           let config = {
             method: "get",
             maxBodyLength: Infinity,
@@ -278,6 +299,76 @@ export const useMainStore = defineStore("main", {
             },
             data: data,
           };
+
+          axios
+            .request(config)
+            .then((response) => {
+              console.log(JSON.stringify(response.data));
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      }
+
+      // Handle profile informations
+      let data = JSON.stringify({
+        email_public: this.profile.email,
+        first_name: this.profile.firstName,
+        last_name: this.profile.lastName,
+      });
+
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "http://127.0.0.1:8000/profile",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${this.token}`,
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
+
+        // Handle profile image upload
+        if(this.profile.image){
+
+          let formData = new FormData()
+
+       
+          const rawImage = this.profile.image.split("base64,")
+          
+
+          formData.append("file", this.profile.image);
+
+
+          console.log(this.profile.image)
+
+
+          let data = JSON.stringify({'file': rawImage[1]});
+  
+          let config = {
+            method: "post",
+            maxBodyLength: Infinity,
+            url: "http://127.0.0.1:8000/profile/upload",
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${this.token}`,
+              "Content-Type": "application/json",
+            },
+            data: { file: this.profile.image },
+          };
   
           axios
             .request(config)
@@ -287,50 +378,16 @@ export const useMainStore = defineStore("main", {
             .catch((error) => {
               console.log(error);
             });
-  
-        }
-      }
 
 
-    },
-    // NOTE: Profile
-
-    // get profile informations
-    async getUserProfile(){
-
-      let data = "";
-
-      let config = {
-        method: "get",
-        maxBodyLength: Infinity,
-        url: "http://127.0.0.1:8000/profile",
-        headers: {
-          Accept: "application/json",
-          Authorization:
-            `Bearer ${this.token}`,
-        },
-        data: data,
-      };
-
-      axios
-        .request(config)
-        .then((response) => {
-          console.log(JSON.stringify(response.data));
           
-          this.addFristName(response.data['first_name'])
-          this.addLastName(response.data['last_name'])
-          this.addEmail(response.data['public_email'])
-          this.addShareLink(response.data['share_link'])
 
-          console.log(this.profile)
-
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        }
+        
 
 
     },
+
 
 
 
@@ -341,10 +398,9 @@ export const useMainStore = defineStore("main", {
       return data;
     },
 
-
     // NOTE: Helplers
-     accessToken(token){
+    accessToken(token) {
       this.token = token;
-     }
+    },
   },
 });
