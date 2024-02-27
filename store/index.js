@@ -7,6 +7,7 @@ export const useMainStore = defineStore("main", {
   state: () => ({
     token: null,
     links: [],
+    removedLinks: [],
     profile: {
       firstName: null,
       lastName: null,
@@ -39,6 +40,8 @@ export const useMainStore = defineStore("main", {
 
     remove(id) {
       const index = this.links.map((e) => e.id).indexOf(id);
+
+      this.removedLinks.push(id);
       this.links.splice(index, 1);
     },
 
@@ -237,6 +240,34 @@ export const useMainStore = defineStore("main", {
         }
 
       }
+
+
+      for(let id of this.removedLinks){
+        let data = "";
+
+        let config = {
+          method: "get",
+          maxBodyLength: Infinity,
+          url: `http://127.0.0.1:8000/links/${id}`,
+          headers: {
+            Accept: "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiaWQiOjEsImV4cCI6MTcwOTA0ODIyMX0.-De-wAESgsD4Q7D4Gv-gErZedkIA5HuhsHhM1NyAJ5A",
+          },
+          data: data,
+        };
+
+        axios
+          .request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+      }
+
 
     },
     // NOTE: Profile
