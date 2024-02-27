@@ -70,18 +70,34 @@ import { LinkObject, LinkOptions } from "~/components/Helper";
 import { useMainStore } from "~/store/index";
 
 const store = useMainStore();
-const { add, remove } = store;
+const { add, remove, getLinks } = store;
 
 let token = useCookie('access_token');
 
 definePageMeta({
   middleware: [
-    function (to, from) {
+    async function (to, from) {
       let token = useCookie('access_token');
+      let store = useMainStore()
+
       if(!token.value){
         return navigateTo("/login");
       }
 
+
+      store.getLinks().then(val=>{
+
+      }).catch(error=>{
+        console.log('Middleware Error', error)
+        if(error == 'Error: 401'){
+           //return navigateTo("/login");
+        }
+
+      })
+      
+     
+
+     
     },
   ],
 });

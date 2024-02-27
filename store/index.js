@@ -64,6 +64,8 @@ export const useMainStore = defineStore("main", {
     },
 
     // NOTE: API Handling
+
+    // NOTE: Login / Registration
     async loginUser(email, password) {
       const formdata = new FormData();
       formdata.append("username", email);
@@ -74,6 +76,7 @@ export const useMainStore = defineStore("main", {
         formdata
       );
 
+      this.token = data["access_token"];
       return data["access_token"];
     },
 
@@ -106,6 +109,43 @@ export const useMainStore = defineStore("main", {
         });
     },
 
+
+    // NOTE: Links
+
+    //Get Links from Server
+    async getLinks(){
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'http://127.0.0.1:8000/links',
+        headers: { 
+          'Accept': 'application/json', 
+          'Authorization': `Bearer ${this.token}`
+        },
+      };
+
+      console.log(this.token)
+
+      await axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        return JSON.stringify(response.data)
+      })
+      .catch((error) => {
+        
+        if (error.response.status == 401){
+          console.log(error.response.status);
+          throw new Error('401')
+        }
+
+      });
+    },
+
+
+    // NOTE: Profile
+
+
+    // NOTE: Share Profile
     async getShareProfile() {
       let { data } = await axios.get(`${URL}/share/${"Joel-Storr-1"}`);
       console.log(data);
