@@ -64,7 +64,7 @@ const emits = defineEmits(["save", "linkadded"]);
 const props = defineProps({});
 
 const store = useMainStore();
-const { addEmpty, add, reoderLinks } = store;
+const { addEmpty, add, reoderLinks, saveData } = store;
 
 const links = computed({
   get() {
@@ -84,7 +84,11 @@ function eventPass() {
   emits("linkadded");
 }
 
-function save() {}
+function save() {
+
+  saveData()
+
+}
 
 function addLink() {
   addEmpty();
