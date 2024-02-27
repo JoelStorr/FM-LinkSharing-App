@@ -13,6 +13,7 @@ export const useMainStore = defineStore("main", {
       lastName: null,
       email: null,
       image: null,
+      shareLink: null
     },
   }),
 
@@ -66,6 +67,10 @@ export const useMainStore = defineStore("main", {
 
     addImage(image) {
       this.profile.image = image;
+    },
+
+    addShareLink(link) {
+      this.profile.shareLink = link;
     },
 
     // NOTE: API Handling
@@ -253,6 +258,9 @@ export const useMainStore = defineStore("main", {
 
         }
 
+
+        // Handle Profile Informations
+
       }
 
 
@@ -286,6 +294,44 @@ export const useMainStore = defineStore("main", {
 
     },
     // NOTE: Profile
+
+    // get profile informations
+    async getUserProfile(){
+
+      let data = "";
+
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://127.0.0.1:8000/profile",
+        headers: {
+          Accept: "application/json",
+          Authorization:
+            `Bearer ${this.token}`,
+        },
+        data: data,
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          
+          this.addFristName(response.data['first_name'])
+          this.addLastName(response.data['last_name'])
+          this.addEmail(response.data['public_email'])
+          this.addShareLink(response.data['share_link'])
+
+          console.log(this.profile)
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
+    },
+
 
 
     // NOTE: Share Profile

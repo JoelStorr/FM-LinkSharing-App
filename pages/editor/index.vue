@@ -100,6 +100,17 @@ definePageMeta({
         }
 
       })
+
+      store.getUserProfile().then(val=>{}).catch(error=>{
+        console.log('Middleware Error', error)
+        if(error == 'Error: 401'){
+           return navigateTo("/login");
+        }
+
+      })
+    
+    
+    
       
      
 
