@@ -84,13 +84,19 @@ definePageMeta({
         return navigateTo("/login");
       }
 
+         if (store.token == null){
+          store.setToken(token.value)
+        }
 
       store.getLinks().then(val=>{
 
       }).catch(error=>{
         console.log('Middleware Error', error)
+
+     
+
         if(error == 'Error: 401'){
-           //return navigateTo("/login");
+           return navigateTo("/login");
         }
 
       })
@@ -177,6 +183,8 @@ function submitLink() {
     }
   }
 }
+
+submitLink()
 </script>
 
 <style scoped>
