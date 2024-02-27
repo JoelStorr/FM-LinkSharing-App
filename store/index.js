@@ -168,13 +168,24 @@ export const useMainStore = defineStore("main", {
     //Save Links to server
     async saveData(){
 
+        // Handle Order of links
+        for(let i = 0; i < this.links.length; i++ ){
+          if(this.links[i].position != i){
+            this.links[i].position = i;
+            this.links[i].edit = this.links[i].edit == null ? null : true
+          }
+        }
+
+
+
+
       for(let link of this.links){
         console.log(link['id'])
         //check if link is new 
         if (link['edit'] == null){
           //add new link
           let data = JSON.stringify({
-            position: 0,
+            position: link['position'],
             name: link['name'],
             icon: link['icon'],
             link: link['link'],
@@ -242,30 +253,31 @@ export const useMainStore = defineStore("main", {
       }
 
 
-      for(let id of this.removedLinks){
-        let data = "";
-
-        let config = {
-          method: "get",
-          maxBodyLength: Infinity,
-          url: `http://127.0.0.1:8000/links/${id}`,
-          headers: {
-            Accept: "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiaWQiOjEsImV4cCI6MTcwOTA0ODIyMX0.-De-wAESgsD4Q7D4Gv-gErZedkIA5HuhsHhM1NyAJ5A",
-          },
-          data: data,
-        };
-
-        axios
-          .request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
+      if (this.removedLinks.length > 0){
+        for(let id of this.removedLinks){
+          let data = "";
+  
+          let config = {
+            method: "get",
+            maxBodyLength: Infinity,
+            url: `http://127.0.0.1:8000/links/${id}`,
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${this.token}`,
+            },
+            data: data,
+          };
+  
+          axios
+            .request(config)
+            .then((response) => {
+              console.log(JSON.stringify(response.data));
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+  
+        }
       }
 
 
