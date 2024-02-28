@@ -7,13 +7,13 @@
 </template>
 
 <script setup>
-// definePageMeta({
-//   middleware: [
-//     function (to, from) {
-//       return navigateTo("/editor");
-//     },
-//   ],
-// });
+definePageMeta({
+  middleware: [
+    function (to, from) {
+      return navigateTo("/editor");
+    },
+  ],
+});
 
 import { useMainStore } from "~/store/index";
 
