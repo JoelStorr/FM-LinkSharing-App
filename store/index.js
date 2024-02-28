@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+
 import axios from "axios";
 
 const URL = "http://127.0.0.1:8000";
@@ -189,7 +190,7 @@ export const useMainStore = defineStore("main", {
       axios
         .request(config)
         .then((response) => {
-          console.log(JSON.stringify(response.data));
+          //console.log(JSON.stringify(response.data));
 
           this.addFristName(response.data["first_name"]);
           this.addLastName(response.data["last_name"]);
@@ -199,8 +200,48 @@ export const useMainStore = defineStore("main", {
           console.log(this.profile);
         })
         .catch((error) => {
+          //console.log(error);
+        });
+
+        this.getProfileImage();
+
+    },
+
+    // get profile image
+    async getProfileImage(){
+      
+
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: "http://127.0.0.1:8000/profile/show",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${this.token}`,
+          "Content-Type": "arraybuffer",
+        },
+      };
+
+      axios
+        .request(config)
+        .then(async(response) => {
+          console.log(response.data);
+          //console.log(response.data)
+          let base64String = `data:image/jpeg;base64,${response.data}`
+          this.profile.image = base64String
+
+          console.log(base64String)
+
+
+
+        })
+        .catch((error) => {
           console.log(error);
         });
+
+
+     
+
     },
 
     //Save Links to server
@@ -214,7 +255,7 @@ export const useMainStore = defineStore("main", {
       }
 
       for (let link of this.links) {
-        console.log(link["id"]);
+        //console.log(link["id"]);
         //check if link is new
         if (link["edit"] == null) {
           //add new link
@@ -242,10 +283,10 @@ export const useMainStore = defineStore("main", {
           axios
             .request(config)
             .then((response) => {
-              console.log(JSON.stringify(response.data));
+              //console.log(JSON.stringify(response.data));
             })
             .catch((error) => {
-              console.log(error);
+              //console.log(error);
             });
         } else if (link["edit"] == true) {
           // update existing link
@@ -274,10 +315,10 @@ export const useMainStore = defineStore("main", {
           axios
             .request(config)
             .then((response) => {
-              console.log(JSON.stringify(response.data));
+              //console.log(JSON.stringify(response.data));
             })
             .catch((error) => {
-              console.log(error);
+              //console.log(error);
             });
         }
 
@@ -303,10 +344,10 @@ export const useMainStore = defineStore("main", {
           axios
             .request(config)
             .then((response) => {
-              console.log(JSON.stringify(response.data));
+              //console.log(JSON.stringify(response.data));
             })
             .catch((error) => {
-              console.log(error);
+              //console.log(error);
             });
         }
       }
@@ -333,59 +374,36 @@ export const useMainStore = defineStore("main", {
       axios
         .request(config)
         .then((response) => {
-          console.log(JSON.stringify(response.data));
+          //console.log(JSON.stringify(response.data));
         })
         .catch((error) => {
-          console.log(error);
+          //console.log(error);
         });
 
+      // Handle profile image upload
+      // File Upload source https://dev.to/spaceofmiah/api-file-upload-done-right-fastapi-1kd1
+      if (this.profile.image) {
+        let config = {
+          method: "post",
+          maxBodyLength: Infinity,
+          url: "http://127.0.0.1:8000/profile/upload",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${this.token}`,
+            "Content-Type": "application/json",
+          },
+          data: { file: this.profile.image },
+        };
 
-
-        // Handle profile image upload
-        if(this.profile.image){
-
-          let formData = new FormData()
-
-       
-          const rawImage = this.profile.image.split("base64,")
-          
-
-          formData.append("file", this.profile.image);
-
-
-          console.log(this.profile.image)
-
-
-          let data = JSON.stringify({'file': rawImage[1]});
-  
-          let config = {
-            method: "post",
-            maxBodyLength: Infinity,
-            url: "http://127.0.0.1:8000/profile/upload",
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${this.token}`,
-              "Content-Type": "application/json",
-            },
-            data: { file: this.profile.image },
-          };
-  
-          axios
-            .request(config)
-            .then((response) => {
-              console.log(JSON.stringify(response.data));
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-
-
-          
-
-        }
-        
-
-
+        axios
+          .request(config)
+          .then((response) => {
+            //console.log(JSON.stringify(response.data));
+          })
+          .catch((error) => {
+            //console.log(error);
+          });
+      }
     },
 
 
@@ -394,7 +412,7 @@ export const useMainStore = defineStore("main", {
     // NOTE: Share Profile
     async getShareProfile() {
       let { data } = await axios.get(`${URL}/share/${"Joel-Storr-1"}`);
-      console.log(data);
+      //console.log(data);
       return data;
     },
 
