@@ -31,7 +31,7 @@ const profileImage = computed(() => {
   return store.profile.image;
 });
 
-const imageConvert = useState("imageConvert", () => null);
+const imageConvert = useState("imageConvert", () => store.profile.image);
 
 async function imageUploader(value) {
   const image = value.target.files[0];
