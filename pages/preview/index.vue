@@ -6,7 +6,7 @@
         <template v-slot:text> Back to Editor </template>
       </UIButtonSecondary>
       <!-- TODO: Copy URL -->
-      <UIButtonPrimary> Share Link </UIButtonPrimary>
+      <UIButtonPrimary @on-click="shareLink"> Share Link </UIButtonPrimary>
     </div>
     <div class="contact-card-holder">
       <div class="contact-card">
@@ -39,6 +39,15 @@ const store = useMainStore();
 function goBack() {
   navigateTo("/editor");
 }
+
+
+function shareLink(){
+  console.log(store.profile.shareLink)
+  navigator.clipboard.writeText( `www.localhost:3000/share/${store.profile.shareLink}`);
+  
+}
+
+
 </script>
 
 <style scoped>
