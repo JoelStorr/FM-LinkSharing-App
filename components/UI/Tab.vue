@@ -5,7 +5,7 @@
     @click="emits('clicked')"
   >
     <img :src="props.imgSrc" />
-    <p class="mobile-text"><slot /></p>
+    <span class="mobile-text"><slot /></span>
   </button>
 </template>
 
@@ -29,14 +29,14 @@ const emits = defineEmits("clicked");
   border-radius: 0.5rem;
 }
 
-.tag p {
+.tag span {
   margin: 0;
   padding: 0;
   margin-left: 0.5rem;
   color: #737373;
 }
 
-.tag:hover p {
+.tag:hover span {
   color: #633cff;
 }
 
@@ -49,7 +49,7 @@ const emits = defineEmits("clicked");
   background-color: #efebff;
 }
 
-.active p {
+.active span {
   color: #633cff;
 }
 

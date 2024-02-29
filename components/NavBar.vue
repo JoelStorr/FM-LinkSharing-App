@@ -1,8 +1,8 @@
 <template>
-  <div id="navbar">
+  <nav id="navbar">
     <div class="logo-holder">
       <img src="/images/logo-devlinks-small.svg" />
-      <h1 class="mobile-name">devlinks</h1>
+      <h2 class="mobile-name">devlinks</h2>
     </div>
 
     <div class="tabs-holder">
@@ -27,7 +27,7 @@
         <img src="/images/icon-preview-header.svg" />
       </template>
     </UIButtonSecondary>
-  </div>
+  </nav>
 </template>
 
 <script setup>
@@ -62,9 +62,16 @@ function navigateToProfiel() {
   justify-content: space-between;
   background-color: white;
   border-radius: 25px;
-  padding: 2rem;
+  padding: 1rem 2rem;
 }
 
+h2 {
+    font-size: 3.2rem;
+    line-height: 150%;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
 .logo-holder {
   display: flex;
 }

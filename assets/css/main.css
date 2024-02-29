@@ -47,6 +47,14 @@ p{
     color: #737373;
 }
 
+span {
+    font-size: 1.6rem;
+    line-height: 150%;
+    font-weight: normal;
+    font-style: normal;
+    color: #737373;
+}
+
 label{
     font-size: 1.2rem;
     line-height: 150%;

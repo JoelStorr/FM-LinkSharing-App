@@ -6,7 +6,7 @@
       @setProfileEditor="setProfileEditor"
     />
 
-    <div class="mainView">
+    <main class="mainView">
       <div class="phonePreview">
         <div class="image-holder">
           <img
@@ -16,10 +16,10 @@
           <div class="profile-image-holder" v-if="profile.image">
             <img :src="profile.image" class="profile-image" />
           </div>
-          <h2 class="name-prev">
+          <h2 class="name-prev"  v-if="profile.firstName !== null && profile.lastName !== null">
             {{ profile.firstName }} {{ profile.lastName }}
           </h2>
-          <p class="link-prev">{{ profile.email }}</p>
+          <p class="link-prev" v-if="profile.email !== null">{{ profile.email }}</p>
           <UILink
             v-if="link1 !== null"
             id="link1"
@@ -61,7 +61,7 @@
         />
         <ProfileEditor v-else />
       </div>
-    </div>
+    </main>
   </div>
 </template>
 

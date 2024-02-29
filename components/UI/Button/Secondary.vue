@@ -1,11 +1,11 @@
 <template>
   <button @click="emit('onClick')" :disabled="props.disabled">
-    <div :class="props.iconOnly ? 'btn-icon' : ''">
+    <span :class="props.iconOnly ? 'btn-icon' : ''">
       <slot name="icon"></slot>
-    </div>
-    <div :class="props.iconOnly ? 'btn-text' : ''">
+    </span>
+    <span :class="props.iconOnly ? 'btn-text' : ''">
       <slot name="text"></slot>
-    </div>
+    </span>
   </button>
 </template>
 
@@ -27,6 +27,9 @@ button {
   border-radius: 10px;
   font-size: 1.6rem;
 }
+.btn-text{
+  font-weight: bolder;
+}
 
 button:active {
   background-color: #efebff;
@@ -42,6 +45,10 @@ button:disabled {
 
 .btn-icon {
   display: none;
+}
+
+span{
+  color: #623cff;
 }
 
 @media only screen and (max-width: 450px) {
