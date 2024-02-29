@@ -88,16 +88,19 @@ definePageMeta({
         store.setToken(token.value);
       }
 
-      await store
+      let navigator = await store
         .getLinks()
         .then((val) => {
           if (val) {
             submitLink();
           }
+          return null
         })
         .catch((error) => {
+          console.log(error)
           if (error == "Error: 401") {
-            return navigateTo("/login");
+            console.log('in if')
+             return navigateTo("/login");
           }
         });
 
@@ -109,6 +112,12 @@ definePageMeta({
             return navigateTo("/login");
           }
         });
+
+        return navigator
+
+
+
+
     },
   ],
 });
