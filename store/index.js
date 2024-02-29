@@ -397,8 +397,74 @@ export const useMainStore = defineStore("main", {
     },
 
     // NOTE: Share Profile
-    async getShareProfile() {
-      let { data } = await axios.get(`${URL}/share/${"Joel-Storr-1"}`);
+    async getShareProfile(user) {
+      
+
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `http://127.0.0.1:8000/share/${user}`,
+        headers: {
+          Accept: "application/json",
+        },
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          let resUnpack = response.data
+
+          console.log(resUnpack.profile)
+
+          this.addFristName(resUnpack.profile['first_name']);
+          this.addLastName(resUnpack.profile['last_name']);
+          this.addEmail(resUnpack.profile['public_email'])
+
+          this.links = [];
+          // Add To Store
+          for (let link of resUnpack.links) {
+            this.links.push({
+              id: link.id,
+              position: link.position,
+              name: link.name,
+              icon: link.icon,
+              link: link.link,
+              placeholder: link.placeholder,
+              edit: false,
+            });
+          }
+
+           let config = {
+             method: "get",
+             maxBodyLength: Infinity,
+             url: `http://127.0.0.1:8000/share/show/${resUnpack.profile['profile_image']}`,
+             headers: {
+               Accept: "application/json",
+               "Content-Type": "arraybuffer",
+             },
+           };
+
+           axios
+             .request(config)
+             .then(async (response) => {
+               let base64String = `data:image/jpeg;base64,${response.data}`;
+               this.profile.image = base64String;
+               this.checkProfileSave();
+             })
+             .catch((error) => {});
+
+
+
+          console.log(this.profile.firstName)
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
+      console.log(data)
 
       return data;
     },
