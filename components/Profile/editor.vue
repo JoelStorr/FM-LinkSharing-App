@@ -66,7 +66,7 @@
     <hr />
     <div class="btn-holder">
       <div class="btn-spacer"></div>
-      <UIButtonPrimary class="save-btn" :disabled="true">Save</UIButtonPrimary>
+      <UIButtonPrimary class="save-btn" :disabled="saveButton" @on-click="save">Save</UIButtonPrimary>
     </div>
   </div>
 </template>
@@ -76,7 +76,7 @@ import { useMainStore } from "~/store/index";
 import { emailRegEx } from "~/components/Helper";
 
 const store = useMainStore();
-const { addFristName, addLastName, addEmail } = store;
+const { addFristName, addLastName, addEmail, saveData } = store;
 
 const firstName = ref(store.profile.firstName);
 const isFirstNameError = ref(false);
@@ -91,6 +91,9 @@ const emailError = ref("");
 let timerFirst = null;
 let timerLast = null;
 let timerEmail = null;
+
+
+const saveButton = computed(()=>{return !store.profileSave})
 
 function onFirstNameChange(value) {
   if (timerFirst != null) {
@@ -144,6 +147,12 @@ function onEmailChange(value) {
 
   email.value = value;
 }
+
+function save(){
+    saveData();
+}
+
+
 </script>
 
 <style scoped>

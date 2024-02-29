@@ -46,7 +46,7 @@
 
     <div class="btn-holder">
       <div class="btn-spacer"></div>
-      <UIButtonPrimary class="save-btn" :disabled="false" @on-click="save"
+      <UIButtonPrimary class="save-btn" :disabled="activeSave" @on-click="save"
         >Save</UIButtonPrimary
       >
     </div>
@@ -64,7 +64,7 @@ const emits = defineEmits(["save", "linkadded"]);
 const props = defineProps({});
 
 const store = useMainStore();
-const { addEmpty, add, reoderLinks, saveData } = store;
+const { addEmpty, add, reoderLinks, saveData, checkLinkSave } = store;
 
 const links = computed({
   get() {
@@ -75,6 +75,12 @@ const links = computed({
     emits("linkadded");
   },
 });
+
+
+  let activeSave = computed(()=>{
+    console.log(store.linkSave)
+    return !store.linkSave
+  })
 
 const dragging = useState("dragging", () => {
   return false;
