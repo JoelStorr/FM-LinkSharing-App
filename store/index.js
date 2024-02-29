@@ -68,7 +68,6 @@ export const useMainStore = defineStore("main", {
 
     addImage(image) {
       this.profile.image = image;
-      console.log(image)
     },
 
     addShareLink(link) {
@@ -116,12 +115,9 @@ export const useMainStore = defineStore("main", {
       axios
         .request(config)
         .then((response) => {
-          console.log(JSON.stringify(response.data));
           return response;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch((error) => {});
     },
 
     // NOTE: Links
@@ -138,18 +134,13 @@ export const useMainStore = defineStore("main", {
         },
       };
 
-      console.log(this.token);
-
       await axios
         .request(config)
         .then((response) => {
-          console.log(response.data);
-
           response.data.sort((a, b) => a.position - b.position);
 
           // Add To Store
           for (let link of response.data) {
-            console.log(link.id);
             this.links.push({
               id: link.id,
               position: link.position,
@@ -161,11 +152,10 @@ export const useMainStore = defineStore("main", {
             });
           }
 
-          return JSON.stringify(response.data);
+          return true;
         })
         .catch((error) => {
           if (error.response.status == 401) {
-            console.log(error.response.status);
             throw new Error("401");
           }
         });
@@ -190,27 +180,18 @@ export const useMainStore = defineStore("main", {
       axios
         .request(config)
         .then((response) => {
-          //console.log(JSON.stringify(response.data));
-
           this.addFristName(response.data["first_name"]);
           this.addLastName(response.data["last_name"]);
           this.addEmail(response.data["public_email"]);
           this.addShareLink(response.data["share_link"]);
-
-          console.log(this.profile);
         })
-        .catch((error) => {
-          //console.log(error);
-        });
+        .catch((error) => {});
 
-        this.getProfileImage();
-
+      this.getProfileImage();
     },
 
     // get profile image
-    async getProfileImage(){
-      
-
+    async getProfileImage() {
       let config = {
         method: "get",
         maxBodyLength: Infinity,
@@ -224,24 +205,11 @@ export const useMainStore = defineStore("main", {
 
       axios
         .request(config)
-        .then(async(response) => {
-          console.log(response.data);
-          //console.log(response.data)
-          let base64String = `data:image/jpeg;base64,${response.data}`
-          this.profile.image = base64String
-
-          console.log(base64String)
-
-
-
+        .then(async (response) => {
+          let base64String = `data:image/jpeg;base64,${response.data}`;
+          this.profile.image = base64String;
         })
-        .catch((error) => {
-          console.log(error);
-        });
-
-
-     
-
+        .catch((error) => {});
     },
 
     //Save Links to server
@@ -255,7 +223,6 @@ export const useMainStore = defineStore("main", {
       }
 
       for (let link of this.links) {
-        //console.log(link["id"]);
         //check if link is new
         if (link["edit"] == null) {
           //add new link
@@ -282,12 +249,8 @@ export const useMainStore = defineStore("main", {
           // TODO: Handle Errors
           axios
             .request(config)
-            .then((response) => {
-              //console.log(JSON.stringify(response.data));
-            })
-            .catch((error) => {
-              //console.log(error);
-            });
+            .then((response) => {})
+            .catch((error) => {});
         } else if (link["edit"] == true) {
           // update existing link
 
@@ -314,12 +277,8 @@ export const useMainStore = defineStore("main", {
 
           axios
             .request(config)
-            .then((response) => {
-              //console.log(JSON.stringify(response.data));
-            })
-            .catch((error) => {
-              //console.log(error);
-            });
+            .then((response) => {})
+            .catch((error) => {});
         }
 
         // Handle Profile Informations
@@ -343,12 +302,8 @@ export const useMainStore = defineStore("main", {
 
           axios
             .request(config)
-            .then((response) => {
-              //console.log(JSON.stringify(response.data));
-            })
-            .catch((error) => {
-              //console.log(error);
-            });
+            .then((response) => {})
+            .catch((error) => {});
         }
       }
 
@@ -373,12 +328,8 @@ export const useMainStore = defineStore("main", {
 
       axios
         .request(config)
-        .then((response) => {
-          //console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-          //console.log(error);
-        });
+        .then((response) => {})
+        .catch((error) => {});
 
       // Handle profile image upload
       // File Upload source https://dev.to/spaceofmiah/api-file-upload-done-right-fastapi-1kd1
@@ -397,22 +348,15 @@ export const useMainStore = defineStore("main", {
 
         axios
           .request(config)
-          .then((response) => {
-            //console.log(JSON.stringify(response.data));
-          })
-          .catch((error) => {
-            //console.log(error);
-          });
+          .then((response) => {})
+          .catch((error) => {});
       }
     },
-
-
-
 
     // NOTE: Share Profile
     async getShareProfile() {
       let { data } = await axios.get(`${URL}/share/${"Joel-Storr-1"}`);
-      //console.log(data);
+
       return data;
     },
 

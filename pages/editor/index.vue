@@ -70,58 +70,48 @@ import { LinkObject, LinkOptions } from "~/components/Helper";
 import { useMainStore } from "~/store/index";
 
 const store = useMainStore();
-const { add, remove, getLinks } = store;
+const { add, remove, getLinks, setup } = store;
 
-let token = useCookie('access_token');
+let token = useCookie("access_token");
 
 definePageMeta({
   middleware: [
     async function (to, from) {
-      let token = useCookie('access_token');
-      let store = useMainStore()
+      let token = useCookie("access_token");
+      let store = useMainStore();
 
-      if(!token.value){
+      if (!token.value) {
         return navigateTo("/login");
       }
 
-         if (store.token == null){
-          store.setToken(token.value)
-        }
+      if (store.token == null) {
+        store.setToken(token.value);
+      }
 
-      store.getLinks().then(val=>{
+      await store
+        .getLinks()
+        .then((val) => {
+          if (val) {
+            submitLink();
+          }
+        })
+        .catch((error) => {
+          if (error == "Error: 401") {
+            return navigateTo("/login");
+          }
+        });
 
-      }).catch(error=>{
-        console.log('Middleware Error', error)
-
-     
-
-        if(error == 'Error: 401'){
-           return navigateTo("/login");
-        }
-
-      })
-
-      store.getUserProfile().then(val=>{}).catch(error=>{
-        console.log('Middleware Error', error)
-        if(error == 'Error: 401'){
-           return navigateTo("/login");
-        }
-
-      })
-    
-    
-    
-      
-     
-
-     
+      store
+        .getUserProfile()
+        .then((val) => {})
+        .catch((error) => {
+          if (error == "Error: 401") {
+            return navigateTo("/login");
+          }
+        });
     },
   ],
 });
-
-
-
-
 
 const isLinkEditor = ref(true);
 
@@ -195,7 +185,7 @@ function submitLink() {
   }
 }
 
-submitLink()
+submitLink();
 </script>
 
 <style scoped>
