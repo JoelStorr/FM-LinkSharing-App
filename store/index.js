@@ -16,6 +16,8 @@ export const useMainStore = defineStore("main", {
       image: null,
       shareLink: null,
     },
+    linkSave: false,
+    profileSave: false
   }),
 
   actions: {
@@ -38,6 +40,9 @@ export const useMainStore = defineStore("main", {
       this.links[index].link = link.link;
       this.links[index].placeholder = link.placeholder;
       this.links[index].edit = this.links[index].edit == null ? null : true;
+
+
+      this.checkLinkSave()
     },
 
     remove(id) {
@@ -45,6 +50,8 @@ export const useMainStore = defineStore("main", {
 
       this.removedLinks.push(id);
       this.links.splice(index, 1);
+
+      this.checkLinkSave()
     },
 
     reoderLinks(reorder) {
@@ -58,9 +65,11 @@ export const useMainStore = defineStore("main", {
     // NOTE: Profile
     addFristName(firstName) {
       this.profile.firstName = firstName;
+      this.checkProfileSave()
     },
     addLastName(lastName) {
       this.profile.lastName = lastName;
+      this.checkProfileSave();
     },
     addEmail(email) {
       this.profile.email = email;
@@ -68,11 +77,33 @@ export const useMainStore = defineStore("main", {
 
     addImage(image) {
       this.profile.image = image;
+      this.checkProfileSave();
     },
 
     addShareLink(link) {
       this.profile.shareLink = link;
     },
+
+    checkLinkSave(){
+
+      if(this.links.length > 0){
+        this.linkSave = true;
+        return
+      } 
+      this.linkSave = false;
+    },
+    checkProfileSave(){
+
+      if(this.profile.firstName != null && this.profile.lastName != null && this.profile.image != null ){
+        this.profileSave = true
+        return
+      } 
+
+      this.profileSave = false
+      return
+    },
+
+
 
     // NOTE: API Handling
 
@@ -138,7 +169,7 @@ export const useMainStore = defineStore("main", {
         .request(config)
         .then((response) => {
           response.data.sort((a, b) => a.position - b.position);
-
+          this.links = [];
           // Add To Store
           for (let link of response.data) {
             this.links.push({
@@ -151,12 +182,12 @@ export const useMainStore = defineStore("main", {
               edit: false,
             });
           }
-
+          this.checkLinkSave()
           return true;
         })
         .catch((error) => {
           if (error.response.status == 401) {
-            throw new Error("401");
+            throw new Error(401);
           }
         });
     },
@@ -208,149 +239,161 @@ export const useMainStore = defineStore("main", {
         .then(async (response) => {
           let base64String = `data:image/jpeg;base64,${response.data}`;
           this.profile.image = base64String;
+          this.checkProfileSave();
         })
         .catch((error) => {});
     },
 
     //Save Links to server
     async saveData() {
-      // Handle Order of links
-      for (let i = 0; i < this.links.length; i++) {
-        if (this.links[i].position != i) {
-          this.links[i].position = i;
-          this.links[i].edit = this.links[i].edit == null ? null : true;
+
+
+      if(this.linkSave){
+        // Handle Order of links
+        for (let i = 0; i < this.links.length; i++) {
+          if (this.links[i].position != i) {
+            this.links[i].position = i;
+            this.links[i].edit = this.links[i].edit == null ? null : true;
+          }
         }
+  
+        for (let link of this.links) {
+          //check if link is new
+          if (link["edit"] == null) {
+            //add new link
+            let data = JSON.stringify({
+              position: link["position"],
+              name: link["name"],
+              icon: link["icon"],
+              link: link["link"],
+              placeholder: link["placeholder"],
+            });
+  
+            let config = {
+              method: "post",
+              maxBodyLength: Infinity,
+              url: "http://127.0.0.1:8000/links",
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${this.token}`,
+                "Content-Type": "application/json",
+              },
+              data: data,
+            };
+  
+            // TODO: Handle Errors
+            axios
+              .request(config)
+              .then((response) => {})
+              .catch((error) => {});
+          } else if (link["edit"] == true) {
+            // update existing link
+  
+            let data = JSON.stringify({
+              id: link["id"],
+              position: link["position"],
+              name: link["name"],
+              icon: link["icon"],
+              link: link["link"],
+              placeholder: link["placeholder"],
+            });
+  
+            let config = {
+              method: "post",
+              maxBodyLength: Infinity,
+              url: "http://127.0.0.1:8000/links/edit",
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${this.token}`,
+                "Content-Type": "application/json",
+              },
+              data: data,
+            };
+  
+            axios
+              .request(config)
+              .then((response) => {})
+              .catch((error) => {});
+          }
+  
+          // Handle Profile Informations
+        }
+  
+        // Handle removed links
+        if (this.removedLinks.length > 0) {
+          for (let id of this.removedLinks) {
+            let data = "";
+  
+            let config = {
+              method: "get",
+              maxBodyLength: Infinity,
+              url: `http://127.0.0.1:8000/links/${id}`,
+              headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${this.token}`,
+              },
+              data: data,
+            };
+  
+            axios
+              .request(config)
+              .then((response) => {})
+              .catch((error) => {});
+          }
+        }
+
       }
 
-      for (let link of this.links) {
-        //check if link is new
-        if (link["edit"] == null) {
-          //add new link
-          let data = JSON.stringify({
-            position: link["position"],
-            name: link["name"],
-            icon: link["icon"],
-            link: link["link"],
-            placeholder: link["placeholder"],
-          });
+      console.log(this.profileSave)
 
-          let config = {
-            method: "post",
-            maxBodyLength: Infinity,
-            url: "http://127.0.0.1:8000/links",
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${this.token}`,
-              "Content-Type": "application/json",
-            },
-            data: data,
-          };
+      if(this.profileSave){
 
-          // TODO: Handle Errors
-          axios
-            .request(config)
-            .then((response) => {})
-            .catch((error) => {});
-        } else if (link["edit"] == true) {
-          // update existing link
-
-          let data = JSON.stringify({
-            id: link["id"],
-            position: link["position"],
-            name: link["name"],
-            icon: link["icon"],
-            link: link["link"],
-            placeholder: link["placeholder"],
-          });
-
-          let config = {
-            method: "post",
-            maxBodyLength: Infinity,
-            url: "http://127.0.0.1:8000/links/edit",
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${this.token}`,
-              "Content-Type": "application/json",
-            },
-            data: data,
-          };
-
-          axios
-            .request(config)
-            .then((response) => {})
-            .catch((error) => {});
-        }
-
-        // Handle Profile Informations
-      }
-
-      // Handle removed links
-      if (this.removedLinks.length > 0) {
-        for (let id of this.removedLinks) {
-          let data = "";
-
-          let config = {
-            method: "get",
-            maxBodyLength: Infinity,
-            url: `http://127.0.0.1:8000/links/${id}`,
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${this.token}`,
-            },
-            data: data,
-          };
-
-          axios
-            .request(config)
-            .then((response) => {})
-            .catch((error) => {});
-        }
-      }
-
-      // Handle profile informations
-      let data = JSON.stringify({
-        email_public: this.profile.email,
-        first_name: this.profile.firstName,
-        last_name: this.profile.lastName,
-      });
-
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "http://127.0.0.1:8000/profile",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${this.token}`,
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-
-      axios
-        .request(config)
-        .then((response) => {})
-        .catch((error) => {});
-
-      // Handle profile image upload
-      // File Upload source https://dev.to/spaceofmiah/api-file-upload-done-right-fastapi-1kd1
-      if (this.profile.image) {
+        // Handle profile informations
+        let data = JSON.stringify({
+          email_public: this.profile.email,
+          first_name: this.profile.firstName,
+          last_name: this.profile.lastName,
+        });
+  
         let config = {
           method: "post",
           maxBodyLength: Infinity,
-          url: "http://127.0.0.1:8000/profile/upload",
+          url: "http://127.0.0.1:8000/profile",
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${this.token}`,
             "Content-Type": "application/json",
           },
-          data: { file: this.profile.image },
+          data: data,
         };
-
+  
         axios
           .request(config)
           .then((response) => {})
           .catch((error) => {});
+  
+        // Handle profile image upload
+        // File Upload source https://dev.to/spaceofmiah/api-file-upload-done-right-fastapi-1kd1
+        if (this.profile.image) {
+          let config = {
+            method: "post",
+            maxBodyLength: Infinity,
+            url: "http://127.0.0.1:8000/profile/upload",
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${this.token}`,
+              "Content-Type": "application/json",
+            },
+            data: { file: this.profile.image },
+          };
+  
+          axios
+            .request(config)
+            .then((response) => {})
+            .catch((error) => {});
+        }
       }
+
     },
 
     // NOTE: Share Profile
