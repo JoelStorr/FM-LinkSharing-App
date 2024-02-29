@@ -11,7 +11,7 @@
     </UIButtonSecondary>
 
     <div class="emptyHolder" v-if="links.length == 0">
-      <img src="/images/illustration-empty.svg" />
+      <img src="/images/illustration-empty.svg" alt="icon"/>
       <h2>Let's get you started</h2>
       <p>
         Use the "Add new link" button to get started Once you have more then one

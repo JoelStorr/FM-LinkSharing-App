@@ -5,9 +5,9 @@
     :to="externalLink"
     :target="props.link ? '_blank' : ''"
   >
-    <img :src="props.iconSrc" :class="iconDark" />
+    <img :src="props.iconSrc" :class="iconDark" alt="icon"/>
     <p :class="darkText">{{ props.name }}</p>
-    <img src="/images/icon-arrow-right.svg" :class="darkArrow" />
+    <img src="/images/icon-arrow-right.svg" :class="darkArrow" alt="icon"/>
   </NuxtLink>
 </template>
 

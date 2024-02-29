@@ -1,6 +1,6 @@
 <template>
   <div id="login-screen">
-    <img src="/images/logo-devlinks-large.svg" class="logo" />
+    <img src="/images/logo-devlinks-large.svg" class="logo" alt="logo"/>
 
     <div id="login-content-holder">
       <h1>Login</h1>
@@ -15,7 +15,7 @@
             field-id="email"
             @on-value-change="saveEmail"
           >
-            <img src="/images/icon-email.svg" />
+            <img src="/images/icon-email.svg" alt="icon"/>
             <template v-slot:error>
               {{ emailErrorText }}
             </template>
@@ -31,7 +31,7 @@
             field-id="password"
             @on-value-change="savePassword"
           >
-            <img src="/images/icon-password.svg" />
+            <img src="/images/icon-password.svg" alt="icon"/>
             <template v-slot:error>
               {{ passwordErrorText }}
             </template>

@@ -28,7 +28,7 @@
             @on-value-change="onFirstNameChange"
             :error="isFirstNameError"
           >
-            <img />
+            <img alt="icon"/>
             <template v-slot:error>{{ firstNameError }}</template>
           </UITextField>
         </label>
@@ -42,7 +42,7 @@
             @on-value-change="onLastNameChange"
             :error="isLastNameError"
           >
-            <img />
+            <img alt="icon"/>
             <template v-slot:error>{{ lastNameError }}</template>
           </UITextField>
         </label>
@@ -56,7 +56,7 @@
             @on-value-change="onEmailChange"
             :error="isEmailError"
           >
-            <img />
+            <img alt="icon"/>
             <template v-slot:error>{{ emailError }}</template>
           </UITextField>
         </label>

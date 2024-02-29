@@ -15,7 +15,7 @@
             field-id="email"
             @on-value-change="saveEmail"
           >
-            <img src="/images/icon-email.svg" />
+            <img src="/images/icon-email.svg" alt="icon"/>
             <template v-slot:error>
               {{ emailErrorText }}
             </template>
@@ -31,7 +31,7 @@
             field-id="password"
             @on-value-change="savePassword"
           >
-            <img src="/images/icon-password.svg" />
+            <img src="/images/icon-password.svg" alt="icon"/>
             <template v-slot:error>
               {{ passwordErrorText }}
             </template>
@@ -46,7 +46,7 @@
             field-id="confirmPassword"
             @on-value-change="saveConfirmPassword"
           >
-            <img src="/images/icon-password.svg" />
+            <img src="/images/icon-password.svg" alt="icon"/>
             <template v-slot:error>
               {{ confirmPasswordErrorText }}
             </template>

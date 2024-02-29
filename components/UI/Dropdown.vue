@@ -6,19 +6,21 @@
       :class="toggle ? 'active' : ''"
     >
       <div v-if="activeElement.name == null" class="field-content">
-        <img src="/images/icon-link.svg" />
+        <img src="/images/icon-link.svg" alt="icon"/>
         <p>Dropdown Field</p>
         <img
           src="/images/icon-chevron-down.svg"
           :class="toggle ? 'arrowUp' : ''"
+          alt="icon"
         />
       </div>
       <div v-else class="field-content">
-        <img :src="activeElement.icon" />
+        <img :src="activeElement.icon" alt="icon"/>
         <p>{{ activeElement.name }}</p>
         <img
           src="/images/icon-chevron-down.svg"
           :class="toggle ? 'arrowUp' : ''"
+          alt="icon"
         />
       </div>
     </div>
@@ -31,7 +33,7 @@
         @click="setActiveElement(option)"
       >
         <div>
-          <img :src="option.icon" />
+          <img :src="option.icon" alt="icon"/>
           <p>
             {{
               option.name == activeElement.name

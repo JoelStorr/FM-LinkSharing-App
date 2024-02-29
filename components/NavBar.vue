@@ -1,7 +1,7 @@
 <template>
   <nav id="navbar">
     <div class="logo-holder">
-      <img src="/images/logo-devlinks-small.svg" />
+      <img src="/images/logo-devlinks-small.svg" alt="icon"/>
       <h2 class="mobile-name">devlinks</h2>
     </div>
 
@@ -24,7 +24,7 @@
       <template v-slot:text> Preview </template>
 
       <template v-slot:icon>
-        <img src="/images/icon-preview-header.svg" />
+        <img src="/images/icon-preview-header.svg" alt="icon"/>
       </template>
     </UIButtonSecondary>
   </nav>

@@ -4,7 +4,7 @@
     :class="props.active ? 'active' : ''"
     @click="emits('clicked')"
   >
-    <img :src="props.imgSrc" />
+    <img :src="props.imgSrc" alt="icon"/>
     <span class="mobile-text"><slot /></span>
   </button>
 </template>

@@ -8,7 +8,7 @@
       <template v-slot:text> Login / Register </template>
 
       <template v-slot:icon>
-        <img src="/images/icon-profile-details-header.svg" />
+        <img src="/images/icon-profile-details-header.svg" alt="icon" />
       </template>
     </UIButtonSecondary>
 
@@ -16,7 +16,7 @@
     <div class="contact-card-holder">
       <div class="contact-card">
         <div class="imageOutline">
-          <img :src="store.profile.image" class="profileImage" />
+          <img :src="store.profile.image" class="profileImage" alt="profile image"/>
         </div>
         <h1>{{ store.profile.firstName }} {{ store.profile.lastName }}</h1>
         <p>{{ store.profile.email }}</p>

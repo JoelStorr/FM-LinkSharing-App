@@ -11,7 +11,7 @@
     <div class="contact-card-holder">
       <div class="contact-card">
         <div class="imageOutline">
-          <img :src="store.profile.image" class="profileImage" />
+          <img :src="store.profile.image" class="profileImage" alt="profile image" />
         </div>
         <h1>{{ store.profile.firstName }} {{ store.profile.lastName }}</h1>
         <p>{{ store.profile.email }}</p>

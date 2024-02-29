@@ -5,9 +5,9 @@
     @dragleave.prevent="onDragleave"
     @drop.prevent="onDrop"
   >
-    <img :src="imageConvert" v-if="imageConvert" class="user-img" />
+    <img :src="imageConvert" v-if="imageConvert" class="user-img" alt="profiel image"/>
     <div :class="profileImage ? 'haseImage' : 'noImage'">
-      <img src="/images/icon-upload-image.svg" />
+      <img src="/images/icon-upload-image.svg" alt="icon"/>
       <p v-if="profileImage">Change Image</p>
       <p v-else>+ Upload Image</p>
     </div>

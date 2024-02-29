@@ -12,9 +12,10 @@
           <img
             src="/images/illustration-phone-mockup.svg"
             class="phone-image"
+            alt="phone mockup"
           />
           <div class="profile-image-holder" v-if="profile.image">
-            <img :src="profile.image" class="profile-image" />
+            <img :src="profile.image" class="profile-image" alt="profiel image"/>
           </div>
           <h2 class="name-prev"  v-if="profile.firstName !== null && profile.lastName !== null">
             {{ profile.firstName }} {{ profile.lastName }}

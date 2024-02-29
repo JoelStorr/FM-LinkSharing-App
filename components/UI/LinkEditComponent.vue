@@ -2,7 +2,7 @@
   <div id="link-edit">
     <div class="header">
       <div class="header-link-number">
-        <img src="/images/icon-drag-and-drop.svg" class="handle" />
+        <img src="/images/icon-drag-and-drop.svg" class="handle" alt="icon"/>
         <h2>Link # {{ linkNumber }}</h2>
       </div>
 
@@ -24,7 +24,7 @@
       @on-value-change="linkValidation"
       :error="hasError"
     >
-      <img :src="activeLinkElement.icon" />
+      <img :src="activeLinkElement.icon" alt="icon"/>
       <template v-slot:error>
         {{ errorMessage }}
       </template>
