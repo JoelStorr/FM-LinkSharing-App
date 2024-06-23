@@ -74,6 +74,7 @@
 <script setup>
 import { useMainStore } from "~/store/index";
 import { emailRegEx } from "~/components/Helper";
+import './profile-editor.css';
 
 const store = useMainStore();
 const { addFristName, addLastName, addEmail, saveData } = store;
@@ -155,112 +156,4 @@ function save(){
 
 </script>
 
-<style scoped>
-#profile-editor {
-  position: relative;
-  width: 100%;
-  background-color: white;
-  padding: 2rem 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 2.5rem;
-}
 
-.image-upload-holder {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fafafa;
-  border-radius: 2.5rem;
-  padding: 2rem;
-}
-
-.form-holder {
-  background-color: #fafafa;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  border-radius: 2.5rem;
-}
-
-.btn-holder {
-  display: flex;
-}
-
-.btn-spacer {
-  flex: 1;
-}
-
-hr {
-  min-width: 100%;
-  border: none;
-  border-top: 1px solid #d9d9d9;
-  height: 0;
-}
-
-label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-form:last-child {
-  margin-bottom: 0rem;
-}
-
-.form-spacer {
-  width: 500px;
-  flex: 1;
-}
-
-@media only screen and (max-width: 1025px) {
-  #profile-editor {
-    justify-content: flex-start;
-    overflow-x: scroll;
-  }
-
-  .image-upload-holder {
-    margin: 3rem 0 4rem 0;
-  }
-  .mobile-spacer {
-    flex: 1;
-  }
-
-  .btn-holder {
-    margin: 2rem 0 2rem 0;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .image-upload-holder {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  label {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  hr {
-    margin-top: 2rem;
-  }
-
-  .btn-holder {
-    width: 100%;
-    display: block;
-  }
-  .btn-spacer {
-    display: none;
-  }
-
-  .save-btn {
-    width: 100%;
-  }
-}
-</style>

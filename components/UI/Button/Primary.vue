@@ -9,6 +9,8 @@
 </template>
 
 <script setup>
+  import './primary.css';
+
 const props = defineProps({
   disabled: Boolean,
   type: String,
@@ -17,21 +19,4 @@ const props = defineProps({
 const emit = defineEmits(["onClick"]);
 </script>
 
-<style scoped>
-button {
-  background-color: #623cff;
-  border: none;
-  color: white;
-  padding: 1.3rem 5rem;
-  border-radius: 10px;
-  font-size: 1.6rem;
-}
 
-button:active {
-  background-color: #beadff;
-}
-
-button:disabled {
-  background-color: #efebff;
-}
-</style>

@@ -10,6 +10,7 @@
 </template>
 
 <script setup>
+import './secondary.css'
 const props = defineProps({
   disabled: Boolean,
   iconOnly: Boolean,
@@ -18,52 +19,4 @@ const props = defineProps({
 const emit = defineEmits(["onClick"]);
 </script>
 
-<style scoped>
-button {
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #623cff;
-  color: #623cff;
-  padding: 1.2rem 4rem;
-  border-radius: 10px;
-  font-size: 1.6rem;
-}
-.btn-text{
-  font-weight: bolder;
-}
 
-button:active {
-  background-color: #efebff;
-  border: 1px solid #623cff;
-  color: #623cff;
-}
-
-button:disabled {
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #efebff;
-  color: #efebff;
-}
-
-.btn-icon {
-  display: none;
-}
-
-span{
-  color: #623cff;
-}
-
-@media only screen and (max-width: 450px) {
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-  }
-  .btn-icon {
-    display: contents;
-  }
-
-  .btn-text {
-    display: none;
-  }
-}
-</style>

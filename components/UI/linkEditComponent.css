@@ -1,0 +1,39 @@
+#link-edit {
+    min-width: 100%;
+    padding: 0;
+    background-color: #fafafa;
+    border-radius: 2.5rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+#link-edit button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: #737373;
+}
+
+#link-edit p {
+    margin: 0;
+    padding: 1rem 0 0.2rem 0;
+    font-size: 1rem;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-link-number {
+    display: flex;
+    flex-direction: row;
+}
+
+.header-link-number h2 {
+    padding-left: 1rem;
+    color: #737373;
+}

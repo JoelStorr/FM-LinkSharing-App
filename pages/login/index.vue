@@ -52,6 +52,7 @@
 <script setup>
 import { ref } from "vue";
 import { useMainStore } from "~/store/index";
+import './login.css'
 
 definePageMeta({
   layout: "noHeader",
@@ -126,87 +127,4 @@ async function login() {
 }
 </script>
 
-<style scoped>
-#login-screen {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #fafafa;
-}
 
-#login-content-holder {
-  overflow: hidden;
-  background-color: white;
-  width: 30vw;
-  padding: 4rem;
-  margin-top: 6rem;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-#login-form {
-  position: relative;
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-#login-form label {
-  margin-bottom: 2rem;
-}
-
-#form-switch {
-  align-self: center;
-}
-
-.login-link {
-  text-decoration: none;
-}
-
-h1 {
-  margin: 0;
-  padding: 0;
-}
-
-@media only screen and (max-width: 1025px) {
-  #login-content-holder {
-    width: 60vw;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  #login-screen {
-    align-items: flex-start;
-    justify-content: flex-start;
-    background-color: white;
-  }
-
-  #login-content-holder {
-    margin-top: 2rem;
-    padding: 3rem;
-    width: 100vw;
-  }
-
-  .logo {
-    padding: 4rem 0 2rem 2rem;
-  }
-
-  .login-link {
-    display: block;
-  }
-
-  #form-switch {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-}
-</style>

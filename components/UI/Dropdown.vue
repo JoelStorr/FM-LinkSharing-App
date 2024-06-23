@@ -49,6 +49,8 @@
 </template>
 
 <script setup>
+import './dropdown.css';
+
 // {id:String name: String, icon: String}
 const props = defineProps({
   options: Array,
@@ -73,79 +75,4 @@ function setActiveElement(el) {
 }
 </script>
 
-<style scoped>
-#dropdown-holder {
-  position: relative;
-}
 
-.dropdown-field {
-  padding: 0.5rem 1rem;
-  border: 1px solid #d9d9d9;
-  border-radius: 1rem;
-  background-color: white;
-}
-
-.dropdown-field:hover {
-  cursor: pointer;
-}
-
-.field-content {
-  display: flex;
-  flex-direction: row;
-}
-
-.field-content p {
-  flex: 1;
-  margin: 0 0 0 1rem;
-  padding: 0.5rem 0;
-}
-
-.arrowUp {
-  transform: rotate(180deg);
-}
-
-.active {
-  border: 1px solid #623cff;
-  box-shadow: 0 0 20px #beadff;
-}
-
-.dropdown-item div {
-  display: flex;
-}
-
-.activeEl img {
-  filter: brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(3954%)
-    hue-rotate(245deg) brightness(97%) contrast(108%);
-}
-.activeEl p {
-  color: #623cff;
-}
-
-.options-container {
-  position: absolute;
-  z-index: 5;
-  margin-top: 2rem;
-  padding: 0 1.5rem;
-  border: 1px solid #d9d9d9;
-  border-radius: 5px;
-  width: 90%;
-  height: 25rem;
-  background-color: white;
-  overflow: scroll;
-  overflow-x: hidden;
-}
-
-.options-container:hover {
-  cursor: pointer;
-}
-
-.options-container p {
-  margin-left: 1rem;
-}
-
-hr {
-  border: none;
-  border-top: 1px solid #d9d9d9;
-  height: 0;
-}
-</style>

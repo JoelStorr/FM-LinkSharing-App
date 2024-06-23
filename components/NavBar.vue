@@ -31,6 +31,9 @@
 </template>
 
 <script setup>
+
+import './NavBar.css';
+
 const props = defineProps({
   isLinkEditor: Boolean,
 });
@@ -54,42 +57,4 @@ function navigateToProfiel() {
 }
 </script>
 
-<style scoped>
-#navbar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background-color: white;
-  border-radius: 25px;
-  padding: 1rem 2rem;
-}
 
-h2 {
-    font-size: 3.2rem;
-    line-height: 150%;
-    font-weight: bold;
-    margin: 0;
-    padding: 0;
-}
-.logo-holder {
-  display: flex;
-}
-
-img {
-  margin: 0;
-  padding: 0;
-}
-
-.tabs-holder {
-  min-width: 15vw;
-  display: flex;
-  justify-content: space-between;
-}
-
-@media only screen and (max-width: 450px) {
-  .mobile-name {
-    display: none;
-  }
-}
-</style>

@@ -59,6 +59,8 @@ import Dropdown from "../UI/Dropdown.vue";
 import ImageUploadVue from "../UI/ImageUpload.vue";
 import { useMainStore } from "~/store/index";
 
+import './link-editor.css';
+
 const emits = defineEmits(["save", "linkadded"]);
 
 const props = defineProps({});
@@ -105,85 +107,4 @@ function checkMove(e) {
 }
 </script>
 
-<style scoped>
-#linkEditor {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  padding: 2rem 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-radius: 2.5rem;
-  overflow: hidden;
-}
 
-.emptyHolder {
-  max-width: 100%;
-  height: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #fafafa;
-  padding: 5rem 20rem;
-}
-
-.link-edit-items {
-  max-width: 100%;
-  height: 60%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: scroll;
-}
-
-h1 {
-  padding: 0;
-  margin: 0;
-}
-
-hr {
-  min-width: 100%;
-  border: none;
-  border-top: 1px solid #d9d9d9;
-  height: 0;
-}
-
-.btn-holder {
-  display: flex;
-}
-
-.btn-spacer {
-  flex: 1;
-}
-
-.list-group {
-  width: 100%;
-}
-.not-draggable {
-  cursor: no-drop;
-}
-
-@media only screen and (max-width: 450px) {
-  .emptyHolder {
-    width: 100%;
-    padding: 2rem;
-    border-radius: 25px;
-  }
-
-  .btn-holder {
-    width: 100%;
-    display: block;
-  }
-  .btn-spacer {
-    display: none;
-  }
-
-  .save-btn {
-    width: 100%;
-  }
-}
-</style>
